@@ -66,14 +66,15 @@ Create an arrayList of type ```**Material**``` hold 5 different Material object 
 
 
 
-| Material | Name | Price | Number Coats | Coverage |
+| **Material** | **Name** | **Price** | **Number Coats** | **Coverage** |
 | --- | --- | --- | --- | --- |
 | Paint | &quot;Dulux Soft Sheen&quot; | €11.52 per litre | 2 | 12 sq m per litre |
 | Paint | &quot;Crown White&quot; | €10 per litre | 3 | 10 sq m per litre |
-| Material | Name | Price | Length per roll **Width per roll** |   |
+|   |   |   |   |   |    
+| **Material** | **Name** | **Price** | **Length per roll**  | **Width per roll** |
 | Wallpaper | &quot;Shand Kydd&quot; | €50 per roll | 10.06m | 0.52m |
 |   |   |   |   |   |
-| Material | Name | Price |   | Coverage per pack |
+| **Material** | **Name** | **Price** |   | **Coverage per pack** |
 | Flooring | &quot;Quick-Step Planked Oak&quot; | €65 per pack |   | 1.65 m sq |
 | Flooring | &quot;Elka Classic Walnut&quot; | €80 per pack |   | 1.65 m sq |
 
