@@ -9,43 +9,43 @@ The aim of this exercise is for you to calculate the cost of decorating a house 
 Surface Class
 
 - This class has 3 private member variables:
-  - name (String) – name of the surface
-  - length (double) - length of the surface
-  - width (double) - width of the surface
+  - name - ```String``` – name of the surface
+  - length - ```double``` - length of the surface
+  - width - ```double``` - width of the surface
 - Constructor which initialises the 3 member variables using a parameter list
 - Appropriate Getter() methods
-- A calcArea() method which calculates and returns the area as a double
+- A ```calcArea()``` method which calculates and returns the area as a double
 
 Material Class (abstract)
 
 - This class has 2 private member variables:
-  - name (String) - name of the material
-  - price (double) - price per unit
+  - name - ```String``` - name of the material
+  - price - ```double``` - price per unit
 
 - Constructor which initialises member variables using a parameter list
 - Appropriate Getter() methods
-- An abstract method getReqMaterial() which takes an object reference of type surface as a parameter and returns a double.
-- A method called calcTotalPrice() which takes an object reference of type Surface as a parameter and calculates and returns a double representing the total price. The total price is calculated by multiplying the price by the required material (call the getReqMaterial method)
+- An abstract method ```getReqMaterial()``` which takes an object reference of type surface as a parameter and returns a double.
+- A method called ```calcTotalPrice()``` which takes an object reference of type Surface as a parameter and calculates and returns a double representing the total price. The total price is calculated by multiplying the price by the required material (call the ```getReqMaterial()``` method)
 
 
 
 **Paint Class (type of material)**
 
 - This class has 2 private member variables:
-  - numCoats (int) - number of coats required
-  - coverage (double) - number of sq meters per litre
+  - numCoats - ```int``` - number of coats required
+  - coverage - ```double``` - number of sq meters per litre
 - Constructor which initialises appropriate member variables using a parameter list
 - Appropriate Getter()methods
 - Overide the getReqMaterial() method in the Material class which takes an object reference of type Surface  and returns a double representing the number of litres of paint required.
   - Note 1: Windows and doors account for 20% of the wall surface.
-  - Note  2: A room has 4 walls - you need to bear this in mind when doing the calculation.
+  - Note 2: A room has 4 walls - you need to bear this in mind when doing the calculation.
   - Note 3: The length member variable (defined in Surface class) can be used to represent the height of the surface
 
 **Wallpaper Class (type of material)**
 
 - This class has 2 private member variables:
-  - length per roll (double)
-  - width per roll (double)
+  - length per roll - ```double```
+  - width per roll - ```double```
 - Constructor which initialises appropriate member variables using a parameter list
 - Appropriate Getter() methods
 - Overide the getReqMaterial() method in the Material class which takes an object reference of type Surface as a parameter and returns a double representing the number of rolls of wallpaper required. Notes 1,2,3 from above apply here also for your calculations.
@@ -62,7 +62,7 @@ Material Class (abstract)
 
 Test Class
 
-Create an arrayList of type **Material to** hold 5 different Material object references
+Create an arrayList of type ```**Material**``` hold 5 different Material object references
 
 
 
