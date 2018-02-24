@@ -18,45 +18,45 @@ Surface Class
 
 Material Class (abstract)
 
-- .This class has 2 private member variables:
-  - .name (String) - name of the material
-  - .price (double) - price per unit
+- This class has 2 private member variables:
+  - name (String) - name of the material
+  - price (double) - price per unit
 
-- .Constructor which initialises member variables using a parameter list
-- .Appropriate Getter() methods
-- .An abstract method getReqMaterial() which takes an object reference of type surface as a parameter and returns a double.
-- .A method called calcTotalPrice() which takes an object reference of type Surface as a parameter and calculates and returns a double representing the total price. The total price is calculated by multiplying the price by the required material (call the getReqMaterial method)
+- Constructor which initialises member variables using a parameter list
+- Appropriate Getter() methods
+- An abstract method getReqMaterial() which takes an object reference of type surface as a parameter and returns a double.
+- A method called calcTotalPrice() which takes an object reference of type Surface as a parameter and calculates and returns a double representing the total price. The total price is calculated by multiplying the price by the required material (call the getReqMaterial method)
 
 
 
 **Paint Class (type of material)**
 
-- .This class has 2 private member variables:
-  - .numCoats (int) - number of coats required
-  - .coverage (double) - number of sq meters per litre
-- .Constructor which initialises appropriate member variables using a parameter list
-- .Appropriate Getter()methods
-- .Overide the getReqMaterial() method in the Material class which takes an object reference of type Surface  and returns a double representing the number of litres of paint required.
-  - .Note 1: Windows and doors account for 20% of the wall surface.
-  - .Note  2: A room has 4 walls - you need to bear this in mind when doing the calculation.
-  - .Note 3: The length member variable (defined in Surface class) can be used to represent the height of the surface
+- This class has 2 private member variables:
+  - numCoats (int) - number of coats required
+  - coverage (double) - number of sq meters per litre
+- Constructor which initialises appropriate member variables using a parameter list
+- Appropriate Getter()methods
+- Overide the getReqMaterial() method in the Material class which takes an object reference of type Surface  and returns a double representing the number of litres of paint required.
+  - Note 1: Windows and doors account for 20% of the wall surface.
+  - Note  2: A room has 4 walls - you need to bear this in mind when doing the calculation.
+  - Note 3: The length member variable (defined in Surface class) can be used to represent the height of the surface
 
 **Wallpaper Class (type of material)**
 
-- .This class has 2 private member variables:
-  - .length per roll (double)
-  - .width per roll (double)
-- .Constructor which initialises appropriate member variables using a parameter list
-- .Appropriate Getter() methods
-- .Overide the getReqMaterial() method in the Material class which takes an object reference of type Surface as a parameter and returns a double representing the number of rolls of wallpaper required. Notes 1,2,3 from above apply here also for your calculations.
+- This class has 2 private member variables:
+  - length per roll (double)
+  - width per roll (double)
+- Constructor which initialises appropriate member variables using a parameter list
+- Appropriate Getter() methods
+- Overide the getReqMaterial() method in the Material class which takes an object reference of type Surface as a parameter and returns a double representing the number of rolls of wallpaper required. Notes 1,2,3 from above apply here also for your calculations.
 
 **Flooring Class (type of material)**
 
-- .This class has 1 private member variable:
-  - .coverage per pack
-- .Constructor which initialises appropriate member variables using a parameter list
-- .Appropriate Getter() methods
-- .Overide the getReqMaterial() method in the Material class which takes an object reference of type Surface as a parameter and calculates and returns a double representing the number of packs of flooring required.
+- This class has 1 private member variable:
+  - coverage per pack
+- Constructor which initialises appropriate member variables using a parameter list
+- Appropriate Getter() methods
+- Overide the getReqMaterial() method in the Material class which takes an object reference of type Surface as a parameter and calculates and returns a double representing the number of packs of flooring required.
 
 
 
