@@ -8,8 +8,8 @@ The aim of this exercise is for you to calculate the cost of decorating a house 
 
 Surface Class
 
-- .This class has 3 private member variables:
-  - .name (String) – name of the surface
+-.This class has 3 private member variables:
+  -. name (String) – name of the surface
   - .length (double) - length of the surface
   - .width (double) - width of the surface
 - .Constructor which initialises the 3 member variables using a parameter list
