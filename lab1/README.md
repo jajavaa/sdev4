@@ -2,7 +2,7 @@
 
 Exercise 1
 
-The aim of this exercise is for you to calculate the cost of decorating a house using different kinds of materials. The materials we focus on here are flooring, paint and wallpaper. The walls and floors of the house are represented by a class called Surface. You need to spend some time working out the calculations for the getReqMaterial() method in each of the sub classes.
+The aim of this exercise is for you to calculate the cost of decorating a house using different kinds of materials. The materials we focus on here are flooring, paint and wallpaper. The walls and floors of the house are represented by a class called Surface. You need to spend some time working out the calculations for the ```getReqMaterial()``` method in each of the sub classes.
 
 
 
@@ -56,7 +56,7 @@ Material Class (abstract)
   - coverage per pack
 - Constructor which initialises appropriate member variables using a parameter list
 - Appropriate Getter() methods
-- Overide the getReqMaterial() method in the Material class which takes an object reference of type Surface as a parameter and calculates and returns a double representing the number of packs of flooring required.
+- Overide the ```getReqMaterial()``` method in the Material class which takes an object reference of type Surface as a parameter and calculates and returns a double representing the number of packs of flooring required.
 
 
 
