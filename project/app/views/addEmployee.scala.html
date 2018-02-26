@@ -1,0 +1,37 @@
+@()
+
+@main("Add Employee") {
+    <form action="@routes.HomeController.addEmployee()" method="post">
+        <div class="input-group">
+            <input type="email" class="form-control" name="email" placeholder="Email">
+        </div>
+        <div class="input-group">
+            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" name="firstName" placeholder="First Name">a
+            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" name="lastName" placeholder="Last Name">
+        </div>
+        <div class="input-group">
+            <input type="text" class="form-control" name="salary" placeholder="Salary">
+        </div>
+        <div class="input-group">
+            <input type="text" class="form-control" name="phone" placeholder="Phone Number">
+        </div>
+        <div class="input-group">
+            <input type="text" class="form-control" name="addressFirstLine" placeholder="First Line Address">
+        </div>
+        <div class="input-group">
+            <input type="text" class="form-control" name="addressSecondLine" placeholder="Second Line Address">
+        </div>
+        <div class="input-group">
+            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" name="city" placeholder="City">
+        </div>
+        <div class="input-group">
+            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" name="county" placeholder="County">
+        </div>
+        <div class="input-group">
+            <input type="text" class="form-control" name="code" placeholder="Post Code">
+        </div>
+        <div class="input-group">
+            <input type="text" class="form-control" name="country" placeholder="Country">
+        </div>
+    </form>
+}
