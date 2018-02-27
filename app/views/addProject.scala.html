@@ -1,0 +1,16 @@
+@(form: play.data.Form[models.Project],user: models.users.User)
+@import helper._
+
+@main("Project", user) {
+    <p class="lead">Add a new project</p>
+    @form(action=routes.HomeController.addCustomerSubmit(), 'class-> "form-horizontal", 'role -> "form") {
+        @CSRF.formField
+        @inputText(form("name"), '_label -> "Name", 'class -> "form_control")
+        <div class="actions">
+            <input type="submit" value="Add/Update Customer" class="btn btn-primary">
+            <a href="@routes.HomeController.project">
+                <button type="button" class="btn btn-warning">Cancel</button>
+            </a>
+        </div>
+    }
+}
