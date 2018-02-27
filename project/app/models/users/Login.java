@@ -1,4 +1,4 @@
-package models;
+package models.users;
 
 public class Login {
     private String email;
@@ -14,7 +14,7 @@ public class Login {
     public String getEmail() {
         return email;
     }
-
+    
     public String getPassword() {
         return password;
     }

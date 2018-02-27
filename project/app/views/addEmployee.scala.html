@@ -1,37 +1,30 @@
-@()
+@(form: play.data.Form[models.Employee], user: models.users.User)
+@import helper._
 
-@main("Add Employee") {
-    <form action="@routes.HomeController.addEmployee()" method="post">
-        <div class="input-group">
-            <input type="email" class="form-control" name="email" placeholder="Email">
+@main("Add Product",user) {
+    <p class="lead">Add a new product</p>
+    @form(action=routes.HomeController.createEmployeeSubmit(), 'class -> "form-horizontal", 'role -> "form",) {
+        @* CSRF attack prevention *@
+        @CSRF.formField
+
+        @inputText(form("firstName"), '_label -> "First Name", 'class -> "form-control")
+        @inputText(form("lastName"), '_label -> "Last Name", 'class -> "frorm-control")
+        @select(form("category.id"), options(Department.options),
+            '_label -> "Category", '_default -> "-- Choose a category --",
+            '_showConstraints -> false, 'class -> "form-control"
+        )
+        @inputText(form("email"), '_label -> "Description", 'class -> "form-control")
+        @inputText(form("phone"), '_label -> "Stock", 'class -> "form-control")
+        @form(action=routes.HomeController.createEmployeeSubmit()) 'class -> "form-horizontal" 'role -> "form") {
+
+        }
+
+        @inputText(productForm("id"), '_label -> "", 'hidden -> "hidden")
+        <div class="actions">
+            <input type="submit" value="Add/Update Product" class="btn btn-primary">
+            <a href="@routes.HomeController.index(0)">
+                <button type="button" class="btn btn-warning">Cancel</button>
+            </a>
         </div>
-        <div class="input-group">
-            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" name="firstName" placeholder="First Name">a
-            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" name="lastName" placeholder="Last Name">
-        </div>
-        <div class="input-group">
-            <input type="text" class="form-control" name="salary" placeholder="Salary">
-        </div>
-        <div class="input-group">
-            <input type="text" class="form-control" name="phone" placeholder="Phone Number">
-        </div>
-        <div class="input-group">
-            <input type="text" class="form-control" name="addressFirstLine" placeholder="First Line Address">
-        </div>
-        <div class="input-group">
-            <input type="text" class="form-control" name="addressSecondLine" placeholder="Second Line Address">
-        </div>
-        <div class="input-group">
-            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" name="city" placeholder="City">
-        </div>
-        <div class="input-group">
-            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" name="county" placeholder="County">
-        </div>
-        <div class="input-group">
-            <input type="text" class="form-control" name="code" placeholder="Post Code">
-        </div>
-        <div class="input-group">
-            <input type="text" class="form-control" name="country" placeholder="Country">
-        </div>
-    </form>
+    }
 }

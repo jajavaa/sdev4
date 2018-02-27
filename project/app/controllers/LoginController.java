@@ -3,10 +3,14 @@ package controllers;
 import play.api.Environment;
 import play.mvc.*;
 import play.data.*;
+import play.db.ebean.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.inject.Inject;
 
-import models.*;
+import views.html.*;
+import models.users.*;
 
 public class LoginController extends Controller {
     private FormFactory formFactory;
@@ -45,6 +49,6 @@ public class LoginController extends Controller {
         return redirect(routes.LoginController.login());
     }
 
-
-
+        
+    
 }
