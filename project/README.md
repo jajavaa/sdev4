@@ -31,7 +31,7 @@ The following are the minimum set of mappings required in the system:
 
 The system should also cater for different types of users where at least one of the user types should be able to log in and access parts of the website not accessible by other users. For example, a manager can update the projects that an employee works on but the employee can only view their projects – no update/deletes allowed. This is just one example of different levels of access, you must decide on the different user types that your system will cater for.
 
-## Grading
+### Grading
 
 - **20%**
   - Web site structure &amp; design
