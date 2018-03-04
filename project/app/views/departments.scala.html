@@ -1,0 +1,55 @@
+@(departments: java.util.List[models.Department], department: models.Department, user: models.users.User)
+
+@("Department View", user) {
+    <table>
+        <tr>
+            <th>#</th>
+            <th>Title</th>
+        </tr>
+        @for(department <- departments) {
+            <tr>
+                <td>
+                    <a href="#">@department.getId</a>
+                </td>
+                <td>@department.getTitle</td>
+            </tr>
+        }
+    </table>
+    <h1>@department.getTitle</h1>
+    <ul>
+        <li>@department.getId</li>
+        <li>@department.getTitle</li>
+        <li>@department.getEmployees.size()</li>
+        @*<li>*@
+            @*<a href="@routes.HomeController.editDepartment(department.getId)">Edit</a>*@
+        @*</li>*@
+    </ul>
+    <table>
+        <tr>
+            <th>#</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Department</th>
+            <th>Address</th>
+        </tr>
+        @for(employee <- department.getEmployees) {
+            <tr>
+                <td>
+                    <a href="@routes.EmployeeController.employee(employee.getId)">@employee.getId</a>
+                </td>
+                <td>@employee.getFirstName</td>
+                <td>@employee.getLastName</td>
+                <td>
+                    <a href="mailto:@employee.getEmail">@employee.getEmail</a>
+                </td>
+                <td>
+                    <a href="tel:@employee.getPhone">@employee.getPhone</a>
+                </td>
+                <td>@employee.getDepartment</td>
+                <td>@employee.getAddress.toString</td>
+            </tr>
+        }
+    </table>
+}

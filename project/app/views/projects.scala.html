@@ -1,0 +1,57 @@
+@(projects: java.util.List[models.Project], project: models.Project, user: models.users.User)
+
+@main("Project View", user) {
+    <table>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+        </tr>
+        @for(project <- projects) {
+            <tr>
+                <td>
+                    <a href="#">@project.getId</a>
+                </td>
+                <td>@project.getName</td>
+            </tr>
+        }
+    </table>
+    <h1>@project.getName</h1>
+    <ul>
+        <li>@project.getId</li>
+        <li>@project.getName</li>
+        <li>@project.getStart</li>
+        <li>@project.getEnd</li>
+        <li>@project.getEmployees.size()</li>
+        <li>
+            <a href="@routes.ProjectController.delete(project.getId)">Delete</a>
+        </li>
+    </ul>
+    <table>
+        <tr>
+            <th>#</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Department</th>
+            <th>Address</th>
+        </tr>
+        @for(employee <- project.getEmployees) {
+            <tr>
+                <td>
+                    <a href="@routes.EmployeeController.employee(employee.getId)">@employee.getId</a>
+                </td>
+                <td>@employee.getFirstName</td>
+                <td>@employee.getLastName</td>
+                <td>
+                    <a href="mailto:@employee.getEmail">@employee.getEmail</a>
+                </td>
+                <td>
+                    <a href="tel:@employee.getPhone">@employee.getPhone</a>
+                </td>
+                <td>@employee.getDepartment</td>
+                <td>@employee.getAddress.toString</td>
+            </tr>
+        }
+    </table>
+}

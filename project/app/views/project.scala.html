@@ -1,0 +1,41 @@
+@(project: models.Project, user: models.users.User)
+
+@main(project.getName, user) {
+    <h1>@project.getName</h1>
+    <table>
+        <tr>
+            <td>ID</td>
+            <td>@project.getId</td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td>@project.getName</td>
+        </tr>
+        <tr>
+            <td>Manager</td>
+            <td>
+                <a href="@routes.EmployeeController.employee(project.getManager.getId)">@project.getManager.getNames</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Start</td>
+            <td>@project.getStart.toString</td>
+        </tr>
+        <tr>
+            <td>End</td>
+            <td>@project.getEnd.toString</td>
+        </tr>
+        <tr>
+            <td>Employees</td>
+            <td>
+                <ul>
+                    @for(employee <- project.getEmployees) {
+                        <li>
+                            <a href="@routes.EmployeeController.employee(employee.getId)">@employee.getNames</a>
+                        </li>
+                    }
+                </ul>
+            </td>
+        </tr>
+    </table>
+}

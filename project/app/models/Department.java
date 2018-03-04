@@ -5,6 +5,7 @@ import io.ebean.Finder;
 import io.ebean.Model;
 import play.data.validation.Constraints.Required;
 
+import javax.inject.Inject;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -52,19 +53,19 @@ public class Department extends Model {
         return employees;
     }
 
-    public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
-    }
-
     public static Finder<Long, Department> find = new Finder<>(Department.class);
 
-    public static List<Department> findAll() {
+    public static List<Department> getAll() {
         return Department.find.query().where().orderBy("title asc").findList();
+    }
+
+    public static Department get(Long id) {
+        return find.ref(id);
     }
 
     public static Map<String, String> options() {
         LinkedHashMap<String, String> options = new LinkedHashMap<>();
-        findAll().forEach(department -> options.put(department.getId().toString(), department.getTitle()));
+        getAll().forEach(department -> options.put(department.getId().toString(), department.getTitle()));
         return options;
     }
 }

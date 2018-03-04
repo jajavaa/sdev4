@@ -3,9 +3,12 @@ package models;
 import io.ebean.Finder;
 import io.ebean.Model;
 import play.data.validation.Constraints.Required;
+
+import javax.inject.Inject;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import java.util.List;
 
 @Entity
@@ -17,9 +20,12 @@ public class Employee extends Model {
     private String firstName, lastName;
     @Required
     private String email, phone;
+    @Inject
     @Required
     private Department department;
+
     @Required
+    @OneToOne
     private Address address;
 
     @ManyToMany
@@ -27,7 +33,7 @@ public class Employee extends Model {
 
     public Employee() {}
 
-    public Employee(Long id, String firstName, String lastName, String email, String phone, Department department, Address address, List<Project> projects) {
+    public Employee(Long id, String firstName, String lastName, String email, String phone, Address address, List<Project> projects) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

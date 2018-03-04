@@ -2,18 +2,17 @@ package controllers;
 
 import models.Department;
 import models.users.User;
-import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.departments;
 
-public class HomeController extends Controller {
+import static play.mvc.Controller.session;
+import static play.mvc.Results.ok;
 
-    public HomeController() {}
+public class DepartmentController {
 
-    public Result index(Long id) {
+    public DepartmentController() {}
+
+    public Result departments(Long id) {
         return ok(departments.render(Department.getAll(), Department.get(id), User.find(session().get("email"))));
     }
-
-
-
 }

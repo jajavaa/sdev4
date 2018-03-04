@@ -25,14 +25,14 @@ public class LoginController extends Controller {
     public Result login() {
         Form<Login> loginForm = formFactory.form(Login.class);
 
-        return ok(login.render(loginForm, User.getUserById(session().get("email"))));
+        return ok(login.render(loginForm, User.find(session().get("email"))));
     }
 
     public Result loginSubmit() {
         Form<Login> loginForm = formFactory.form(Login.class).bindFromRequest();
 
         if (loginForm.hasErrors()) {
-            return badRequest(login.render(loginForm, User.getUserById(session().get("email"))));
+            return badRequest(login.render(loginForm, User.find(session().get("email"))));
         }
 
         else {
@@ -40,7 +40,7 @@ public class LoginController extends Controller {
             session("email", loginForm.get().getEmail());
         }
 
-        return redirect(controllers.routes.HomeController.index(0));
+        return redirect(controllers.routes.HomeController.index(0L));
     }
 
     public Result logout() {
