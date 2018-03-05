@@ -4,20 +4,24 @@ import io.ebean.Finder;
 import io.ebean.Model;
 import org.joda.time.DateTime;
 import play.data.validation.Constraints.Required;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
 public class Project extends Model {
+
     @Id
     private Long id;
 
     @Required
     private String name;
 
-
+    @OneToMany
     private Employee manager;
 
     private DateTime start;
@@ -42,7 +46,7 @@ public class Project extends Model {
 
     public static final Finder<Long, Project> find = new Finder<>(Project.class);
     
-    public static final List<Project> findAll() {
+    public static List<Project> findAll() {
         return Project.find.all();
     }
 
@@ -93,4 +97,22 @@ public class Project extends Model {
     public void setEmployees(List<Employee> employees) {
         this.employees = employees;
     }
+
+    public void addEmployee(Employee employee) {
+        this.employees.add(employee);
+    }
+
+    public void addAllEmployees(Collection<Employee> employees) {
+        this.employees.addAll(employees);
+    }
+
+    public void removeEmployee(Employee employee) {
+        this.employees.remove(employee);
+    }
+
+    public void removeAllEnployee(Collection<Employee> employees) {
+        this.employees.removeAll(employees);
+    }
+
+
 }

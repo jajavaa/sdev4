@@ -11,10 +11,11 @@
 
 <body>
     <nav>
-        <li><a href="@routes.HomeController.index()">Department View</a></li>
-        <li><a href="@routes.ProjectController.projects()">Project View</a></li>
+        <li><a href="@routes.HomeController.index(0)">Department View</a></li>
+        <li><a href="@routes.ProjectController.projects(0)">Project View</a></li>
         <li><a href=""></a></li>
     </nav>
+    @content
 </body>
 
 </html>

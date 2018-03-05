@@ -11,7 +11,11 @@ public class HomeController extends Controller {
     public HomeController() {}
 
     public Result index(Long id) {
-        return ok(departments.render(Department.getAll(), Department.get(id), User.find(session().get("email"))));
+        Department department = Department.get(id);
+        if (department == null) {
+            return ok("Null");
+        }
+        return ok(departments.render(Department.getAll(), department, User.find(session().get("email"))));
     }
 
 

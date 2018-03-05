@@ -1,6 +1,6 @@
 @(departments: java.util.List[models.Department], department: models.Department, user: models.users.User)
 
-@("Department View", user) {
+@main("Department View", user) {
     <table>
         <tr>
             <th>#</th>
@@ -17,8 +17,11 @@
     </table>
     <h1>@department.getTitle</h1>
     <ul>
+        <li>ID:</li>
         <li>@department.getId</li>
+        <li>Title:</li>
         <li>@department.getTitle</li>
+        <li>Size: </li>
         <li>@department.getEmployees.size()</li>
         @*<li>*@
             @*<a href="@routes.HomeController.editDepartment(department.getId)">Edit</a>*@
@@ -47,7 +50,6 @@
                 <td>
                     <a href="tel:@employee.getPhone">@employee.getPhone</a>
                 </td>
-                <td>@employee.getDepartment</td>
                 <td>@employee.getAddress.toString</td>
             </tr>
         }

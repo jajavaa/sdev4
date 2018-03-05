@@ -1,11 +1,8 @@
 package models;
 
-
 import io.ebean.Finder;
 import io.ebean.Model;
-import play.data.validation.Constraints.Required;
-
-import javax.inject.Inject;
+import play.data.validation.Constraints;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -13,13 +10,14 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+
 @Entity
 public class Department extends Model {
 
     @Id
     private Long id;
     
-    @Required
+    @Constraints.Required
     private String title;
 
     @OneToMany

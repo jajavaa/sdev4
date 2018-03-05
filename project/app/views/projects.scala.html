@@ -17,10 +17,15 @@
     </table>
     <h1>@project.getName</h1>
     <ul>
+        <li>ID:</li>
         <li>@project.getId</li>
+        <li>Name:</li>
         <li>@project.getName</li>
+        <li>Start Date and Time:</li>
         <li>@project.getStart</li>
+        <li>End Date and Time:</li>
         <li>@project.getEnd</li>
+        <li>Employees Assigned:</li>
         <li>@project.getEmployees.size()</li>
         <li>
             <a href="@routes.ProjectController.delete(project.getId)">Delete</a>
@@ -33,7 +38,6 @@
             <th>Last Name</th>
             <th>Email</th>
             <th>Phone</th>
-            <th>Department</th>
             <th>Address</th>
         </tr>
         @for(employee <- project.getEmployees) {
@@ -49,7 +53,6 @@
                 <td>
                     <a href="tel:@employee.getPhone">@employee.getPhone</a>
                 </td>
-                <td>@employee.getDepartment</td>
                 <td>@employee.getAddress.toString</td>
             </tr>
         }

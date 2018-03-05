@@ -4,11 +4,7 @@ import io.ebean.Finder;
 import io.ebean.Model;
 import play.data.validation.Constraints.Required;
 
-import javax.inject.Inject;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -16,31 +12,37 @@ public class Employee extends Model {
 
     @Id
     private Long id;
+
     @Required
     private String firstName, lastName;
+
     @Required
     private String email, phone;
-    @Inject
-    @Required
-    private Department department;
 
     @Required
     @OneToOne
     private Address address;
 
-    @ManyToMany
+    @ManyToOne
+    private Department department;
+
+    @ManyToMany()
     private List<Project> projects;
+
+
+
+    public static final Finder<Long, Employee> find = new Finder<>(Employee.class);
 
     public Employee() {}
 
-    public Employee(Long id, String firstName, String lastName, String email, String phone, Address address, List<Project> projects) {
+    public Employee(Long id, String firstName, String lastName, String email, String phone, Address address, Department department, List<Project> projects) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phone = phone;
-        this.department = department;
         this.address = address;
+        this.department = department;
         this.projects = projects;
     }
 
@@ -79,15 +81,7 @@ public class Employee extends Model {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
+    
     public Address getAddress() {
         return address;
     }
@@ -96,6 +90,13 @@ public class Employee extends Model {
         this.address = address;
     }
 
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
 
     public List<Project> getProjects() {
         return projects;
@@ -109,10 +110,12 @@ public class Employee extends Model {
         return String.format("%s %s", firstName, lastName);
     }
 
-    public static final Finder<Long, Employee> find = new Finder<>(Employee.class);
-
     public static List<Employee> findAll() {
         return Employee.find.all();
+    }
+
+    public static Employee find(Long id) {
+        return find.ref(id);
     }
 
 }

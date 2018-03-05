@@ -12,7 +12,7 @@ import views.html.employee;
 public class EmployeeController extends Controller {
 
     public Result employee(Long id) {
-        return ok(employee.render(Employee.find.ref(id), User.find(session().get("email"))));
+        return ok(employee.render(Employee.find(id), User.find(session().get("email"))));
     }
 //
 //    @Security.Authenticated(Secured.class)
