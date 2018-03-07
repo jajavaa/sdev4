@@ -10,8 +10,8 @@ public class AuthAdmin extends Action.Simple {
     public CompletionStage<Result> call(Http.Context ctx) {
         String id = ctx.session().get("email");
         if (id != null) {
-            User u = User.find(id);
-            if ("admin".equals(u.getRole())) {
+            User user = User.get(id);
+            if (user.getRole().equals("admin") && user.getClass().equals(Admin.class)) {
                 return delegate.call(ctx);
             }
         }

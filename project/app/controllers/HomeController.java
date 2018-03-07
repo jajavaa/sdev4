@@ -10,14 +10,7 @@ public class HomeController extends Controller {
 
     public HomeController() {}
 
-    public Result index(Long id) {
-        Department department = Department.get(id);
-        if (department == null) {
-            return ok("Null");
-        }
-        return ok(departments.render(Department.getAll(), department, User.find(session().get("email"))));
+    public Result index(String id) {
+        return ok(departments.render(Department.getAll(), Department.get(id), User.get(session().get("email"))));
     }
-
-
-
 }

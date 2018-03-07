@@ -1,8 +1,8 @@
-GET     /                       controllers.HomeController.index(department: Long?=0)
-GET     /departments            controllers.DepartmentController.departments(department: Long?=0)
-GET     /projects               controllers.ProjectController.projects(project: Long?=0)
-GET     /project/:id            controllers.ProjectController.project(id: Long)
-GET     /employee/:id           controllers.EmployeeController.employee(id: Long)
-GET     /project/delete/:id     controllers.ProjectController.delete(id: Long)
+GET     /                       controllers.HomeController.index(department: String?="0")
+GET     /departments            controllers.DepartmentController.departments(department: String?="0")
+GET     /projects               controllers.ProjectController.projects(project: String?="0")
+GET     /project/:id            controllers.ProjectController.project(id: String)
+GET     /employee/:id           controllers.EmployeeController.employee(id: String)
+GET     /project/delete/:id     controllers.ProjectController.delete(id: String)
 GET     /login                  controllers.LoginController.login
 POST    /loginSubmit            controllers.LoginController.loginSubmit

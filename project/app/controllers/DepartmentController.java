@@ -12,7 +12,7 @@ public class DepartmentController {
 
     public DepartmentController() {}
 
-    public Result departments(Long id) {
-        return ok(departments.render(Department.getAll(), Department.get(id), User.find(session().get("email"))));
+    public Result departments(String id) {
+        return ok(departments.render(Department.getAll(), Department.get(id), User.get(session().get("email"))));
     }
 }

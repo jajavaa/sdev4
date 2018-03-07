@@ -12,6 +12,7 @@ import views.html.projects;
 import views.html.project;
 
 public class ProjectController extends Controller{
+
 //    @Security.Authenticated(Secured.class)
 //    @With(AuthAdmin.class)
 //    @Transactional
@@ -20,15 +21,14 @@ public class ProjectController extends Controller{
 //        return ok(addProject.render(customerForm, User.find(session().get("email"))));
 //    }
 
-    public Result projects(Long id) {
-        return ok(projects.render(Project.findAll(), Project.find.ref(id), User.find(session().get("email"))));
+    public Result projects(String id) {
+        return ok(projects.render(Project.findAll(), Project.getFinder().ref(id), User.get(session().get("email"))));
     }
 
-    public Result project(Long id) {
-        return ok(project.render(Project.find.ref(id), User.find(session().get("email"))));
+    public Result project(String id) {
+        return ok(project.render(Project.getFinder().ref(id), User.get(session().get("email"))));
     }
 
-    // TO DO:
 //    @Transactional
 //    public Result updateProject(Long id) {
 //        Project project;
@@ -45,10 +45,10 @@ public class ProjectController extends Controller{
 //        return ok(addCustomer.render(form, User.getUserById(session().get("email"))));
 //    }
 
-    public Result delete(Long id) {
-        Project.find.ref(id).delete();
+    public Result delete(String id) {
+        Project.getFinder().ref(id).delete();
         flash("success", "Customer has been deleted");
-        return redirect(routes.HomeController.index(0));
+        return redirect(routes.HomeController.index("0"));
     }
 
 //    public Result projectForm() {

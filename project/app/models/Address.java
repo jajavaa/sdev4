@@ -11,31 +11,23 @@ public class Address extends Model {
 
     @Id
     private Long id;
-    @Required
     private String lineOne, lineTwo;
-    @Required
     private String city;
-    @Required
     private String county;
-    @Required
     private String code;
     private String country;
 
     public Address() {
     }
 
-    public Address(String lineOne, String lineTwo, String city, String county, String code, String country) {
+    public Address(Long id, String lineOne, String lineTwo, String city, String county, String code, String country) {
+        this.id = id;
         this.lineOne = lineOne;
         this.lineTwo = lineTwo;
         this.city = city;
         this.county = county;
         this.code = code;
         this.country = country;
-    }
-
-    public Address(Long id, String lineOne, String lineTwo, String city, String county, String code, String country) {
-        this(lineOne, lineTwo, city, county, code, country);
-        this.id = id;
     }
 
     public Long getId() {

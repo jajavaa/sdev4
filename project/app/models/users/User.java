@@ -4,76 +4,105 @@ import java.util.*;
 import javax.persistence.*;
 
 import io.ebean.*;
-import play.data.format.*;
 import play.data.validation.*;
 
 @Entity
+@MappedSuperclass
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "role")
 public class User extends Model {
+
     @Id
-    private String email;
+    protected String id;
+    protected String firstName, lastName;
+    protected String password;
+    protected String email, phone;
+    protected String role;
 
-    @Constraints.Required
-    private String role;    
-
-    @Constraints.Required
-    private String name;
-
-    @Constraints.Required
-    private String password;
+    private static Finder<String, User> finder = new Finder<>(User.class);
 
     public User() {
     }
 
-    public String getEmail() {
-        return email;
+    public User(String id, String firstName, String lastName, String password, String email, String phone, String role) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.email = email;
+        this.phone = phone;
+        this.role = role;
     }
 
-    public String getRole() {
-        return role;
+    public String getId() {
+        return id;
     }
 
-    public String getName() {
-        return name;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPassword() {
         return password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getRole() {
+        return role;
     }
 
     public void setRole(String role) {
         this.role = role;
     }
 
-    
-    public void setName(String name) {
-        this.name = name;
+    public static List<? extends User> getAll() {
+        return finder.all();
     }
 
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public static Finder<String, User> find = new Finder<String, User>(User.class);
-
-    public static List<User> find() {
-        return User.find.all();
-    }
-
-
-    public static User find(String id) {
+    public static User get(String id) {
         if (id != null) {
-            return find.byId(id);
+            return finder.byId(id);
         } else {
             return null;
         }
     }
 
     public static User auth(String email, String password) {
-        return find.query().where().eq("email", email).eq("password", password).findUnique();
+        return finder.query().where().eq("email", email).eq("password", password).findUnique();
     }
 }

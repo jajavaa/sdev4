@@ -2,7 +2,8 @@ package models;
 
 import io.ebean.Finder;
 import io.ebean.Model;
-import play.data.validation.Constraints;
+import models.users.Employee;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -15,27 +16,28 @@ import java.util.Map;
 public class Department extends Model {
 
     @Id
-    private Long id;
-    
-    @Constraints.Required
+    private String id;
     private String title;
 
     @OneToMany
     private List<Employee> employees;
 
-    public Department() {}
+    private static Finder<String, Department> find = new Finder<>(Department.class);
 
-    public Department(Long id, String title, List<Employee> employees) {
+    public Department() {
+    }
+
+    public Department(String id, String title, List<Employee> employees) {
         this.id = id;
         this.title = title;
         this.employees = employees;
     }
 
-    public Long getId() {
+    public String getId() {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -51,19 +53,17 @@ public class Department extends Model {
         return employees;
     }
 
-    public static Finder<Long, Department> find = new Finder<>(Department.class);
-
     public static List<Department> getAll() {
         return Department.find.query().where().orderBy("title asc").findList();
     }
 
-    public static Department get(Long id) {
+    public static Department get(String id) {
         return find.ref(id);
     }
 
     public static Map<String, String> options() {
         LinkedHashMap<String, String> options = new LinkedHashMap<>();
-        getAll().forEach(department -> options.put(department.getId().toString(), department.getTitle()));
+        getAll().forEach(department -> options.put(department.getId(), department.getTitle()));
         return options;
     }
 }

@@ -15,99 +15,91 @@ create table address (
 );
 
 create table department (
-  id                            bigint auto_increment not null,
+  id                            varchar(255) not null,
   title                         varchar(255),
   constraint pk_department primary key (id)
 );
 
-create table employee (
-  id                            bigint auto_increment not null,
-  first_name                    varchar(255),
-  last_name                     varchar(255),
-  email                         varchar(255),
-  phone                         varchar(255),
-  address_id                    bigint,
-  department_id                 bigint,
-  constraint uq_employee_address_id unique (address_id),
-  constraint pk_employee primary key (id)
-);
-
-create table employee_project (
-  employee_id                   bigint not null,
-  project_id                    bigint not null,
-  constraint pk_employee_project primary key (employee_id,project_id)
-);
-
 create table project (
-  id                            bigint auto_increment not null,
+  id                            varchar(255) not null,
   name                          varchar(255),
   start                         timestamp,
   end                           timestamp,
   constraint pk_project primary key (id)
 );
 
-create table project_employee (
-  project_id                    bigint not null,
-  employee_id                   bigint not null,
-  constraint pk_project_employee primary key (project_id,employee_id)
+create table project_user (
+  project_id                    varchar(255) not null,
+  user_id                       varchar(255) not null,
+  constraint pk_project_user primary key (project_id,user_id)
 );
 
 create table user (
-  email                         varchar(255) not null,
   role                          varchar(255),
-  name                          varchar(255),
+  id                            varchar(255) not null,
+  first_name                    varchar(255),
+  last_name                     varchar(255),
   password                      varchar(255),
-  constraint pk_user primary key (email)
+  email                         varchar(255),
+  phone                         varchar(255),
+  address_id                    bigint,
+  department_id                 varchar(255),
+  constraint uq_user_address_id unique (address_id),
+  constraint pk_user primary key (id)
 );
 
-alter table employee add constraint fk_employee_address_id foreign key (address_id) references address (id) on delete restrict on update restrict;
+create table user_project (
+  user_id                       varchar(255) not null,
+  project_id                    varchar(255) not null,
+  constraint pk_user_project primary key (user_id,project_id)
+);
 
-alter table employee add constraint fk_employee_department_id foreign key (department_id) references department (id) on delete restrict on update restrict;
-create index ix_employee_department_id on employee (department_id);
+alter table project_user add constraint fk_project_user_project foreign key (project_id) references project (id) on delete restrict on update restrict;
+create index ix_project_user_project on project_user (project_id);
 
-alter table employee_project add constraint fk_employee_project_employee foreign key (employee_id) references employee (id) on delete restrict on update restrict;
-create index ix_employee_project_employee on employee_project (employee_id);
+alter table project_user add constraint fk_project_user_user foreign key (user_id) references user (id) on delete restrict on update restrict;
+create index ix_project_user_user on project_user (user_id);
 
-alter table employee_project add constraint fk_employee_project_project foreign key (project_id) references project (id) on delete restrict on update restrict;
-create index ix_employee_project_project on employee_project (project_id);
+alter table user add constraint fk_user_address_id foreign key (address_id) references address (id) on delete restrict on update restrict;
 
-alter table project_employee add constraint fk_project_employee_project foreign key (project_id) references project (id) on delete restrict on update restrict;
-create index ix_project_employee_project on project_employee (project_id);
+alter table user add constraint fk_user_department_id foreign key (department_id) references department (id) on delete restrict on update restrict;
+create index ix_user_department_id on user (department_id);
 
-alter table project_employee add constraint fk_project_employee_employee foreign key (employee_id) references employee (id) on delete restrict on update restrict;
-create index ix_project_employee_employee on project_employee (employee_id);
+alter table user_project add constraint fk_user_project_user foreign key (user_id) references user (id) on delete restrict on update restrict;
+create index ix_user_project_user on user_project (user_id);
+
+alter table user_project add constraint fk_user_project_project foreign key (project_id) references project (id) on delete restrict on update restrict;
+create index ix_user_project_project on user_project (project_id);
 
 
 # --- !Downs
 
-alter table employee drop constraint if exists fk_employee_address_id;
+alter table project_user drop constraint if exists fk_project_user_project;
+drop index if exists ix_project_user_project;
 
-alter table employee drop constraint if exists fk_employee_department_id;
-drop index if exists ix_employee_department_id;
+alter table project_user drop constraint if exists fk_project_user_user;
+drop index if exists ix_project_user_user;
 
-alter table employee_project drop constraint if exists fk_employee_project_employee;
-drop index if exists ix_employee_project_employee;
+alter table user drop constraint if exists fk_user_address_id;
 
-alter table employee_project drop constraint if exists fk_employee_project_project;
-drop index if exists ix_employee_project_project;
+alter table user drop constraint if exists fk_user_department_id;
+drop index if exists ix_user_department_id;
 
-alter table project_employee drop constraint if exists fk_project_employee_project;
-drop index if exists ix_project_employee_project;
+alter table user_project drop constraint if exists fk_user_project_user;
+drop index if exists ix_user_project_user;
 
-alter table project_employee drop constraint if exists fk_project_employee_employee;
-drop index if exists ix_project_employee_employee;
+alter table user_project drop constraint if exists fk_user_project_project;
+drop index if exists ix_user_project_project;
 
 drop table if exists address;
 
 drop table if exists department;
 
-drop table if exists employee;
-
-drop table if exists employee_project;
-
 drop table if exists project;
 
-drop table if exists project_employee;
+drop table if exists project_user;
 
 drop table if exists user;
+
+drop table if exists user_project;
 

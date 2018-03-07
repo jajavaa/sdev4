@@ -14,25 +14,23 @@ import models.users.*;
 
 public class LoginController extends Controller {
     private FormFactory formFactory;
-    private Environment env;
 
     @Inject
-    public LoginController(Environment e, FormFactory f) {
-        this.env = e;
-        this.formFactory = f;
+    public LoginController(FormFactory formFactory) {
+        this.formFactory = formFactory;
     }
 
     public Result login() {
         Form<Login> loginForm = formFactory.form(Login.class);
 
-        return ok(login.render(loginForm, User.find(session().get("email"))));
+        return ok(login.render(loginForm, User.get(session().get("email"))));
     }
 
     public Result loginSubmit() {
         Form<Login> loginForm = formFactory.form(Login.class).bindFromRequest();
 
         if (loginForm.hasErrors()) {
-            return badRequest(login.render(loginForm, User.find(session().get("email"))));
+            return badRequest(login.render(loginForm, User.get(session().get("email"))));
         }
 
         else {
@@ -40,7 +38,7 @@ public class LoginController extends Controller {
             session("email", loginForm.get().getEmail());
         }
 
-        return redirect(controllers.routes.HomeController.index(0L));
+        return redirect(routes.HomeController.index("0"));
     }
 
     public Result logout() {

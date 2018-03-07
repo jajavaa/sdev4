@@ -1,0 +1,39 @@
+CREATE TABLE Address (
+  id BIGINT PRIMARY KEY,
+  lineOne VARCHAR(20) NOT NULL,
+  lineTwo VARCHAR(20) NOT NULL,
+  city VARCHAR(30) NOT NULL,
+  county VARCHAR(20) NOT NULL,
+  zip VARCHAR(10) NOT NULL,
+  country VARCHAR(30) NOT NULL
+);
+
+CREATE TABLE Departments (
+  id VARCHAR(50) PRIMARY KEY,
+  title VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Employees (
+  email VARCHAR(50) PRIMARY KEY REFERENCES Address(id),
+  firstName VARCHAR(30) NOT NULL,
+  lastName VARCHAR(30) NOT NULL,
+  salary VARCHAR(5) NOT NULL,
+  dob DATE NOT NULL,
+  phone VARCHAR(15) NOT NULL,
+  department BIGINT REFERENCES Departments(id)
+);
+
+CREATE TABLE Projects (
+  id BIGINT PRIMARY KEY,
+  title VARCHAR(40) NOT NULL,
+  started TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  deadline TIMESTAMP NOT NULL
+);
+
+CREATE TABLE EmployeeProjects (
+  employee VARCHAR(50) REFERENCES Employees(email),
+  project BIGINT REFERENCES Projects(id),
+  CONSTRAINT PRIMARY KEY (employee, project)
+);
+
+

@@ -2,13 +2,10 @@ package models;
 
 import io.ebean.Finder;
 import io.ebean.Model;
+import models.users.Employee;
 import org.joda.time.DateTime;
-import play.data.validation.Constraints.Required;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
 
@@ -16,45 +13,28 @@ import java.util.List;
 public class Project extends Model {
 
     @Id
-    private Long id;
-
-    @Required
+    private String id;
     private String name;
-
-    @OneToMany
-    private Employee manager;
-
     private DateTime start;
-
     private DateTime end;
 
-    @ManyToMany
-    private List<Employee> employees;
-
+    private static final Finder<String, Project> finder = new Finder<>(Project.class);
 
     public Project() {
     }
 
-    public Project(Long id, String name, Employee manager, DateTime start, DateTime end, List<Employee> employees) {
+    public Project(String id, String name, DateTime start, DateTime end) {
         this.id = id;
         this.name = name;
-        this.manager = manager;
         this.start = start;
         this.end = end;
-        this.employees = employees;
     }
 
-    public static final Finder<Long, Project> find = new Finder<>(Project.class);
-    
-    public static List<Project> findAll() {
-        return Project.find.all();
-    }
-
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -64,14 +44,6 @@ public class Project extends Model {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Employee getManager() {
-        return manager;
-    }
-
-    public void setManager(Employee manager) {
-        this.manager = manager;
     }
 
     public DateTime getStart() {
@@ -90,28 +62,12 @@ public class Project extends Model {
         this.end = end;
     }
 
-    public List<Employee> getEmployees() {
-        return employees;
+    public static Finder<String, Project> getFinder() {
+        return finder;
     }
 
-    public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
-    }
-
-    public void addEmployee(Employee employee) {
-        this.employees.add(employee);
-    }
-
-    public void addAllEmployees(Collection<Employee> employees) {
-        this.employees.addAll(employees);
-    }
-
-    public void removeEmployee(Employee employee) {
-        this.employees.remove(employee);
-    }
-
-    public void removeAllEnployee(Collection<Employee> employees) {
-        this.employees.removeAll(employees);
+    public static List<Project> findAll() {
+        return Project.finder.all();
     }
 
 
