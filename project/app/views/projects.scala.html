@@ -1,59 +1,34 @@
-@(projects: java.util.List[models.Project], project: models.Project, user: models.users.User)
+@(projects: java.util.List[models.Project], user: models.users.User)
 
 @main("Project View", user) {
+    <a href="@routes.ProjectController.create()">Create new project</a>
     <table>
         <tr>
             <th>#</th>
             <th>Name</th>
+            <th>Start</th>
+            <th>End</th>
+            @if(user.getRole.equals("admin")) {
+                <th>Number of Employees</th>
+            }
         </tr>
         @for(project <- projects) {
             <tr>
                 <td>
-                    <a href="#">@project.getId</a>
+                    <a href="@routes.ProjectController.project(project.getId)">@project.getId</a>
                 </td>
                 <td>@project.getName</td>
-            </tr>
-        }
-    </table>
-    <h1>@project.getName</h1>
-    <ul>
-        <li>ID:</li>
-        <li>@project.getId</li>
-        <li>Name:</li>
-        <li>@project.getName</li>
-        <li>Start Date and Time:</li>
-        <li>@project.getStart</li>
-        <li>End Date and Time:</li>
-        <li>@project.getEnd</li>
-        <li>Employees Assigned:</li>
-        <li>@project.getEmployees.size()</li>
-        <li>
-            <a href="@routes.ProjectController.delete(project.getId)">Delete</a>
-        </li>
-    </ul>
-    <table>
-        <tr>
-            <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Address</th>
-        </tr>
-        @for(employee <- project.getEmployees) {
-            <tr>
-                <td>
-                    <a href="@routes.EmployeeController.employee(employee.getId)">@employee.getId</a>
-                </td>
-                <td>@employee.getFirstName</td>
-                <td>@employee.getLastName</td>
-                <td>
-                    <a href="mailto:@employee.getEmail">@employee.getEmail</a>
-                </td>
-                <td>
-                    <a href="tel:@employee.getPhone">@employee.getPhone</a>
-                </td>
-                <td>@employee.getAddress.toString</td>
+                <td>@project.getStart.toString("dd-MM-yy")</td>
+                <td>@project.getEnd.toString("dd-MM-yy")</td>
+                @if(user.getRole.equals("admin")) {
+                    <td>@project.getEmployees.size</td>
+                    <td>
+                        <a href="@routes.ProjectController.delete(project.getId)">Delete</a>
+                    </td>
+                    <td>
+                        <a href="@routes.ProjectController.update(project.getId)">Update</a>
+                    </td>
+                }
             </tr>
         }
     </table>

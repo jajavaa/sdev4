@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+
 public class Project extends Model {
 
     @Id
@@ -16,7 +17,7 @@ public class Project extends Model {
     private DateTime start;
     private DateTime end;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Employee> employees;
 
     private static final Finder<String, Project> finder = new Finder<>(Project.class);
@@ -72,9 +73,11 @@ public class Project extends Model {
         return finder;
     }
 
-    public static List<Project> findAll() {
+    public static List<Project> getAll() {
         return Project.finder.all();
     }
 
-
+    public static Project get(String id) {
+        return finder.ref(id);
+    }
 }

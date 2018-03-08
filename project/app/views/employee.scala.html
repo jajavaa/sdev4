@@ -1,5 +1,4 @@
-@import models.users.Employee
-@(employee: Employee, user: models.users.User)
+@(employee: models.users.Employee, user: models.users.User)
 
 @main(employee.getNames, user) {
     <h1>@employee.getNames</h1>

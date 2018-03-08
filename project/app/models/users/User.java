@@ -94,12 +94,8 @@ public class User extends Model {
         return finder.all();
     }
 
-    public static User get(String id) {
-        if (id != null) {
-            return finder.byId(id);
-        } else {
-            return null;
-        }
+    public static User getWithEmail(String email) {
+        return finder.query().where().eq("email", email).findOne();
     }
 
     public static User auth(String email, String password) {

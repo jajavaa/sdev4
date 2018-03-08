@@ -1,4 +1,5 @@
-[0m[[0m[33mwarn[0m] [0m[0m/media/sf_E_DRIVE/sdev4/project/app/views/login.scala.html:10:28: method globalError in class Form is deprecated: see corresponding Javadoc for more information.[0m
-[0m[[0m[33mwarn[0m] [0m[0m                @loginForm.globalError.message;[0m
-[0m[[0m[33mwarn[0m] [0m[0m                           ^[0m
-[0m[[0m[33mwarn[0m] [0m[0mone warning found[0m
+[error] /home/konrad/Documents/sdev4/project/app/views/projects.scala.html:26:62: not enough arguments for method update: (id: String)play.api.mvc.Call.
+[error] Unspecified value parameter id.
+[error]                     <a href="@routes.ProjectController.update()"></a>
+[error]                                                              ^
+[error] one error found

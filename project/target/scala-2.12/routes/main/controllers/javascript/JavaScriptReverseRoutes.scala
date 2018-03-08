@@ -1,7 +1,7 @@
 
 // @GENERATOR:play-routes-compiler
-// @SOURCE:/media/sf_E_DRIVE/sdev4/project/conf/routes
-// @DATE:Thu Mar 08 16:48:56 GMT 2018
+// @SOURCE:/home/konrad/Documents/sdev4/project/conf/routes
+// @DATE:Thu Mar 08 21:30:03 GMT 2018
 
 import play.api.routing.JavaScriptReverseRoute
 
@@ -20,16 +20,6 @@ package controllers.javascript {
     }
 
   
-    // @LINE:6
-    def delete: JavaScriptReverseRoute = JavaScriptReverseRoute(
-      "controllers.ProjectController.delete",
-      """
-        function(id0) {
-          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "project/delete/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("id", id0))})
-        }
-      """
-    )
-  
     // @LINE:4
     def project: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.ProjectController.project",
@@ -44,8 +34,38 @@ package controllers.javascript {
     def projects: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.ProjectController.projects",
       """
-        function(project0) {
-          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "projects" + _qS([(project0 == null ? null : (""" + implicitly[play.api.mvc.QueryStringBindable[String]].javascriptUnbind + """)("project", project0))])})
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "projects"})
+        }
+      """
+    )
+  
+    // @LINE:5
+    def create: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.ProjectController.create",
+      """
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "createProject"})
+        }
+      """
+    )
+  
+    // @LINE:8
+    def delete: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.ProjectController.delete",
+      """
+        function(id0) {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "project/delete/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("id", id0))})
+        }
+      """
+    )
+  
+    // @LINE:6
+    def update: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.ProjectController.update",
+      """
+        function(id0) {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "updateProject/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("id", id0))})
         }
       """
     )
@@ -92,7 +112,7 @@ package controllers.javascript {
   
   }
 
-  // @LINE:7
+  // @LINE:9
   class ReverseLoginController(_prefix: => String) {
 
     def _defaultPrefix: String = {
@@ -100,7 +120,7 @@ package controllers.javascript {
     }
 
   
-    // @LINE:8
+    // @LINE:10
     def loginSubmit: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.LoginController.loginSubmit",
       """
@@ -110,7 +130,17 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:7
+    // @LINE:11
+    def logout: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.LoginController.logout",
+      """
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "logout"})
+        }
+      """
+    )
+  
+    // @LINE:9
     def login: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.LoginController.login",
       """
@@ -122,7 +152,7 @@ package controllers.javascript {
   
   }
 
-  // @LINE:5
+  // @LINE:7
   class ReverseEmployeeController(_prefix: => String) {
 
     def _defaultPrefix: String = {
@@ -130,7 +160,7 @@ package controllers.javascript {
     }
 
   
-    // @LINE:5
+    // @LINE:7
     def employee: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.EmployeeController.employee",
       """

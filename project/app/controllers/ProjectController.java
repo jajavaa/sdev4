@@ -3,68 +3,101 @@ package controllers;
 import models.Project;
 import models.users.User;
 import play.data.Form;
+import play.data.FormFactory;
 import play.db.ebean.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 import play.mvc.With;
+import views.html.addProject;
 import views.html.projects;
 import views.html.project;
 
+import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProjectController extends Controller{
 
-//    @Security.Authenticated(Secured.class)
-//    @With(AuthAdmin.class)
-//    @Transactional
-//    public Result createProject() {
-//        Form<Project> customerForm = formFactory.form(Project.class);
-//        return ok(addProject.render(customerForm, User.find(session().get("email"))));
-//    }
+    private FormFactory formFactory;
 
-    public Result projects(String id) {
-        return ok(projects.render(Project.findAll(), Project.getFinder().ref(id), User.get(session().get("email"))));
+    @Inject
+    public ProjectController(FormFactory formFactory) {
+        this.formFactory = formFactory;
     }
 
+    @Security.Authenticated(Secured.class)
+    public Result projects() {
+        List<Project> projectList = Project.getAll();
+        User user = User.getWithEmail(session().get("email"));
+        if(user.getRole().equals("employee")) {
+            List<Project> participating = new ArrayList<>();
+            for(Project p: projectList) {
+                if(p.getEmployees().contains(user)) {
+                    participating.add(p);
+                }
+            }
+            return ok(projects.render(participating, user));
+        }
+        return ok(projects.render(Project.getAll(), user));
+    }
+
+    @Security.Authenticated(Secured.class)
     public Result project(String id) {
-        return ok(project.render(Project.getFinder().ref(id), User.get(session().get("email"))));
+        Project proj = Project.get(id);
+        if (proj.getEmployees().contains(User.getWithEmail(session().get("email")))) {
+            return ok(project.render(proj, User.getWithEmail(session().get("email"))));
+        } else return forbidden("<h1>403 Forbidden</h1>");
+
     }
 
-//    @Transactional
-//    public Result updateProject(Long id) {
-//        Project project;
-//        Form<Project> form;
-//
-//        try {
-//            project = Project.find.byId(id);
-//            assert project != null;
-//            form = formFactory.form(Project.class).fill(project);
-//        } catch (Exception ex) {
-//            return badRequest("<h1>400 Bad Request</h1>");
-//        }
-//
-//        return ok(addCustomer.render(form, User.getUserById(session().get("email"))));
-//    }
+    @Security.Authenticated(Secured.class)
+    @With(Auth.AuthAdmin.class)
+    @Transactional
+    public Result create() {
+        Form<Project> form = formFactory.form(Project.class);
+        return ok(addProject.render(form, User.getWithEmail(session().get("email"))));
+    }
 
+    @Security.Authenticated(Secured.class)
+    @With(Auth.AuthAdmin.class)
+    @Transactional
+    public Result update(String id) {
+        Project project;
+        Form<Project> form;
+        try {
+            project = Project.getFinder().byId(id);
+            assert project != null;
+            form = formFactory.form(Project.class).fill(project);
+        } catch (Exception ex) {
+            return badRequest("<h1>400 Bad Request</h1>");
+        }
+
+        return ok(addProject.render(form, User.getWithEmail(session().get("email"))));
+    }
+
+    @Security.Authenticated(Secured.class)
+    @With(Auth.AuthAdmin.class)
     public Result delete(String id) {
         Project.getFinder().ref(id).delete();
         flash("success", "Customer has been deleted");
         return redirect(routes.HomeController.index("0"));
     }
 
-//    public Result projectForm() {
-//        Form<Project> form = formFactory.form(Project.class).bindFromRequest();
-//        if (!form.hasErrors()) {
-//            Project project = form.get();
-//            if (project.getId() == null) {
-//                project.save();
-//                flash("success", String.format("Project %s was added", project.getName()));
-//            } else {
-//                project.update();
-//                flash("success", String.format("Project %s was updated", project.getName()));
-//            }
-//            return redirect(controllers.routes.HomeController.readProject());
-//        } else {
-//            return badRequest(addProject.render(form, User.find(session().get("email"))));
-//        }
-//    }
+    @Security.Authenticated(Secured.class)
+    @With(Auth.AuthAdmin.class)
+    @Transactional
+    public Result form() {
+        Form<Project> form = formFactory.form(Project.class).bindFromRequest();
+        if (!form.hasErrors()) {
+            Project project = form.get();
+            if (project.getId() == null) {
+                project.save();
+            } else {
+                project.update();
+            }
+            return redirect(controllers.routes.ProjectController.projects());
+        }
+        return badRequest(addProject.render(form, User.getWithEmail(session().get("email"))));
+    }
 }

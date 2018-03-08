@@ -19,18 +19,23 @@ public class EmployeeController extends Controller {
         this.formFactory = formFactory;
     }
 
+    @Security.Authenticated(Secured.class)
+    @With(Auth.AuthEmployee.class)
     public Result employee(String id) {
-        return ok(employee.render(Employee.get(id), User.get(session().get("email"))));
+        Employee emp = Employee.get(id);
+        if (emp.getEmail().equals(session().get("email"))) {
+            return ok(employee.render(emp, User.getWithEmail(session().get("email"))));
+        } else return unauthorized();
     }
 
     @Security.Authenticated(Secured.class)
-    @With(AuthAdmin.class)
+    @With(Auth.AuthAdmin.class)
     public Result createEmployee() {
         return ok();
     }
 
     @Security.Authenticated(Secured.class)
-    @With(AuthAdmin.class)
+    @With(Auth.AuthAdmin.class)
     @Transactional
     public Result updateEmployee(String id) {
         Employee employee;
@@ -46,7 +51,7 @@ public class EmployeeController extends Controller {
     }
 
     @Security.Authenticated(Secured.class)
-    @With(AuthAdmin.class)
+    @With(Auth.AuthAdmin.class)
     @Transactional
     public Result deleteEmployee(String id) {
         Employee.getFinder().ref(id).delete();

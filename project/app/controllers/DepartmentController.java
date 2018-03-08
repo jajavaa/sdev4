@@ -13,6 +13,6 @@ public class DepartmentController {
     public DepartmentController() {}
 
     public Result departments(String id) {
-        return ok(departments.render(Department.getAll(), Department.get(id), User.get(session().get("email"))));
+        return ok(departments.render(Department.getAll(), Department.get(id), User.getWithEmail(session().get("email"))));
     }
 }
