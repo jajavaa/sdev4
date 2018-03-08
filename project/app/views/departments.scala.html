@@ -9,7 +9,7 @@
         @for(department <- departments) {
             <tr>
                 <td>
-                    <a href="#">@department.getId</a>
+                    <a href="@routes.DepartmentController.departments(department.getId)">@department.getId</a>
                 </td>
                 <td>@department.getTitle</td>
             </tr>

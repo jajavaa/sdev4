@@ -1,0 +1,11 @@
+[0m[[0m[0mdebug[0m] [0m[0mCopy resource mappings: [0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/media/sf_E_DRIVE/sdev4/project/conf/application.conf,/media/sf_E_DRIVE/sdev4/project/target/scala-2.12/classes/application.conf)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/media/sf_E_DRIVE/sdev4/project/conf/data,/media/sf_E_DRIVE/sdev4/project/target/scala-2.12/classes/data)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/media/sf_E_DRIVE/sdev4/project/conf/evolutions,/media/sf_E_DRIVE/sdev4/project/target/scala-2.12/classes/evolutions)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/media/sf_E_DRIVE/sdev4/project/conf/logback.xml,/media/sf_E_DRIVE/sdev4/project/target/scala-2.12/classes/logback.xml)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/media/sf_E_DRIVE/sdev4/project/conf/routes,/media/sf_E_DRIVE/sdev4/project/target/scala-2.12/classes/routes)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/media/sf_E_DRIVE/sdev4/project/conf/data/company.mv.db,/media/sf_E_DRIVE/sdev4/project/target/scala-2.12/classes/data/company.mv.db)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/media/sf_E_DRIVE/sdev4/project/conf/data/company.trace.db,/media/sf_E_DRIVE/sdev4/project/target/scala-2.12/classes/data/company.trace.db)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/media/sf_E_DRIVE/sdev4/project/conf/evolutions/default,/media/sf_E_DRIVE/sdev4/project/target/scala-2.12/classes/evolutions/default)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/media/sf_E_DRIVE/sdev4/project/conf/evolutions/default/1.sql,/media/sf_E_DRIVE/sdev4/project/target/scala-2.12/classes/evolutions/default/1.sql)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(/media/sf_E_DRIVE/sdev4/project/conf/evolutions/default/2.sql,/media/sf_E_DRIVE/sdev4/project/target/scala-2.12/classes/evolutions/default/2.sql)[0m

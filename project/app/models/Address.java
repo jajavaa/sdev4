@@ -84,6 +84,6 @@ public class Address extends Model {
 
     @Override
     public String toString() {
-        return String.format("%s,%n%s,%n%s,%n%s,%n%s,%n%s", lineOne, lineOne, city, county, code, country);
+        return String.format("%s,%n%s,%n%s,%n%s,%n%s,%n%s", lineOne, lineTwo, city, county, code, country);
     }
 }

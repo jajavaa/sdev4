@@ -4,9 +4,7 @@ import io.ebean.Finder;
 import io.ebean.Model;
 import models.users.Employee;
 import org.joda.time.DateTime;
-
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -18,24 +16,24 @@ public class Project extends Model {
     private DateTime start;
     private DateTime end;
 
+    @ManyToMany
+    private List<Employee> employees;
+
     private static final Finder<String, Project> finder = new Finder<>(Project.class);
 
     public Project() {
     }
 
-    public Project(String id, String name, DateTime start, DateTime end) {
+    public Project(String id, String name, DateTime start, DateTime end, List<Employee> employees) {
         this.id = id;
         this.name = name;
         this.start = start;
         this.end = end;
+        this.employees = employees;
     }
 
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -60,6 +58,14 @@ public class Project extends Model {
 
     public void setEnd(DateTime end) {
         this.end = end;
+    }
+
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
     }
 
     public static Finder<String, Project> getFinder() {

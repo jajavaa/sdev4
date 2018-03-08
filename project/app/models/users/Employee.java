@@ -18,12 +18,13 @@ public class Employee extends User {
     @ManyToOne
     private Department department;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "employees")
     private List<Project> projects;
 
     private static Finder<String, Employee> finder = new Finder<>(Employee.class);
 
-    public Employee() {}
+    public Employee() {
+    }
 
     public Employee(String id, String firstName, String lastName, String password, String email, String phone,
                     String role, Address address, Department department, List<Project> projects) {
@@ -63,10 +64,6 @@ public class Employee extends User {
 
     public static Finder<String, Employee> getFinder() {
         return finder;
-    }
-
-    public static List<Employee> getAll() {
-        return finder.all();
     }
 
     public static Employee get(String id) {
