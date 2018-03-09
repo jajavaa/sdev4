@@ -64,11 +64,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EmployeeController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="EmployeeController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/EmployeeController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="42" column="75" lean-forward="true" selection-start-line="42" selection-start-column="75" selection-end-line="42" selection-end-column="75" />
+            <state relative-caret-position="300">
+              <caret line="38" column="34" lean-forward="true" selection-start-line="38" selection-start-column="34" selection-end-line="38" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -84,11 +84,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="addEmployee.scala.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="addEmployee.scala.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/addEmployee.scala.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="30" column="55" lean-forward="true" selection-start-line="30" selection-start-column="55" selection-end-line="30" selection-end-column="55" />
+            <state relative-caret-position="270">
+              <caret line="18" column="34" lean-forward="true" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -165,9 +165,9 @@
         <option value="$PROJECT_DIR$/app/models/users/User.java" />
         <option value="$PROJECT_DIR$/app/controllers/ProjectController.java" />
         <option value="$PROJECT_DIR$/app/views/addProject.scala.html" />
-        <option value="$PROJECT_DIR$/app/views/addEmployee.scala.html" />
         <option value="$PROJECT_DIR$/app/models/Address.java" />
         <option value="$PROJECT_DIR$/app/controllers/EmployeeController.java" />
+        <option value="$PROJECT_DIR$/app/views/addEmployee.scala.html" />
       </list>
     </option>
   </component>
@@ -468,12 +468,12 @@
       <workItem from="1520601842665" duration="3279000" />
       <workItem from="1520605709168" duration="784000" />
       <workItem from="1520607522625" duration="2980000" />
-      <workItem from="1520610959018" duration="5791000" />
+      <workItem from="1520610959018" duration="5908000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="40236000" />
+    <option name="totallyTimeSpent" value="40353000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="560" y="291" width="1922" height="1056" extended-state="6" />
@@ -852,18 +852,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/addEmployee.scala.html">
+    <entry file="file://$PROJECT_DIR$/app/controllers/EmployeeController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" column="55" lean-forward="true" selection-start-line="30" selection-start-column="55" selection-end-line="30" selection-end-column="55" />
+        <state relative-caret-position="300">
+          <caret line="38" column="34" lean-forward="true" selection-start-line="38" selection-start-column="34" selection-end-line="38" selection-end-column="34" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/EmployeeController.java">
+    <entry file="file://$PROJECT_DIR$/app/views/addEmployee.scala.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="42" column="75" lean-forward="true" selection-start-line="42" selection-start-column="75" selection-end-line="42" selection-end-column="75" />
+        <state relative-caret-position="270">
+          <caret line="18" column="34" lean-forward="true" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
           <folding />
         </state>
       </provider>
