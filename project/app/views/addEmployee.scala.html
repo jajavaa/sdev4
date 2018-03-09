@@ -1,12 +1,40 @@
 @import helper._
-@(employeeForm: play.data.Form[models.users.Employee], user: models.users.User)
+@(employeeForm: play.data.Form[models.users.Employee], addressForm: play.data.Form[models.Address], employee: models.users.Employee, departments: java.util.List[models.Department], projects: java.util.List[models.Project], user: models.users.User)
 
 @main("Add/Update Employee", user) {
     @form(action = routes.EmployeeController.form()) {
+        @CSRF.formField
         @inputText(employeeForm("id"), 'label -> "Employee ID", 'readonly -> "readonly")
         @inputText(employeeForm("firstName"), 'label -> "First Name")
         @inputText(employeeForm("lastName"), 'label -> "Last Name")
         @inputPassword(employeeForm("password"), 'label -> "Password")
-        
+        @inputText(employeeForm("email"), 'label -> "Email")
+        @inputText(employeeForm("phone"), 'label -> "Mobile Phone")
+            @inputText(addressForm("lineOne"), 'label -> "First Line")
+            @inputText(addressForm("lineTwo"), 'label -> "Second Line")
+            @inputText(addressForm("city"), 'label -> "City")
+            @inputText(addressForm("county"), 'label -> "County")
+            @inputText(addressForm("code"), 'label -> "Eirecode")
+            @inputText(addressForm("country"), 'label -> "Country")
+        <select name="department">
+        @for(department <- departments) {
+            <option value="@department.getId">@department.getTitle</option>
+        }
+        </select>
+        @if(employee == null) {
+            @for(project <- projects) {
+                <input type="checkbox" id="employee" name="@project.getId">
+                <label for="employee">@project.getName</label>
+            }
+        } else {
+            @for(project <- projects) {
+                @if(employee.getProjects.contains(project)) {
+                    <input type="checkbox" id="employee" name="@project.getId" checked>
+                } else {
+                    <input type="checkbox" id="employee" name="@project.getId">
+                }
+                <label for="employee">@project.getId</label>
+            }
+        }
     }
 }

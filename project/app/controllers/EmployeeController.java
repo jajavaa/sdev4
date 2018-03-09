@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Address;
 import models.users.Employee;
 import models.users.User;
 import play.data.Form;
@@ -34,15 +35,17 @@ public class EmployeeController extends Controller {
     @Transactional
     public Result update(String id) {
         Employee employee;
-        Form<Employee> form;
+        Form<Employee> employeeForm;
+        Form<Address> addressForm;
         try {
-            employee = Employee.getFinder().byId(id);
-            assert employee != null;
-            form = formFactory.form(Employee.class).fill(employee);
+            employee = Employee.get(id);
+            Address address = employee.getAddress();
+            employeeForm = formFactory.form(Employee.class).fill(employee);
+            addressForm = formFactory.form(Address.class).fill(address);
         } catch (Exception ex) {
             return badRequest("error");
         }
-        return ok(addEmployee.render(form, User.getWithEmail(session().get("email"))));
+        return ok(addEmployee.render(employeeForm, User.getWithEmail(session().get("email"))));
     }
 
     @Security.Authenticated(Secured.class)

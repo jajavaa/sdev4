@@ -1,5 +1,6 @@
 package models;
 
+import io.ebean.Finder;
 import io.ebean.Model;
 import io.ebean.annotation.NotNull;
 import play.data.validation.Constraints.*;
@@ -11,7 +12,7 @@ import javax.persistence.Id;
 public class Address extends Model {
 
     @Id
-    private Long id;
+    private String id;
     @NotNull
     private String lineOne;
     @NotNull
@@ -28,7 +29,7 @@ public class Address extends Model {
     public Address() {
     }
 
-    public Address(Long id, String lineOne, String lineTwo, String city, String county, String code, String country) {
+    public Address(String id, String lineOne, String lineTwo, String city, String county, String code, String country) {
         this.id = id;
         this.lineOne = lineOne;
         this.lineTwo = lineTwo;
@@ -38,8 +39,12 @@ public class Address extends Model {
         this.country = country;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getLineOne() {
@@ -88,10 +93,5 @@ public class Address extends Model {
 
     public void setCountry(String country) {
         this.country = country;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("%s,%n%s,%n%s,%n%s,%n%s,%n%s", lineOne, lineTwo, city, county, code, country);
     }
 }
