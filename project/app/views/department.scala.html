@@ -1,0 +1,41 @@
+@(department: models.Department, user: models.users.User)
+
+@main(department.getTitle, user) {
+    <table>
+        <tr>
+            <th>#</th>
+            <th>Title</th>
+        </tr>
+        <tr>
+            <td>@department.getId</td>
+            <td>@department.getTitle</td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <th>#</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Department</th>
+            <th>Address</th>
+        </tr>
+        @for(employee <- department.getEmployees) {
+            <tr>
+                <td>
+                    <a href="@routes.EmployeeController.employee(employee.getId)">@employee.getId</a>
+                </td>
+                <td>@employee.getFirstName</td>
+                <td>@employee.getLastName</td>
+                <td>
+                    <a href="mailto:@employee.getEmail">@employee.getEmail</a>
+                </td>
+                <td>
+                    <a href="tel:@employee.getPhone">@employee.getPhone</a>
+                </td>
+                <td>@employee.getAddress.toString</td>
+            </tr>
+        }
+    </table>
+}

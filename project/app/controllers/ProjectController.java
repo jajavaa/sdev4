@@ -1,10 +1,13 @@
 package controllers;
 
 import models.Project;
+import models.users.Employee;
 import models.users.User;
+import play.data.DynamicForm;
 import play.data.Form;
 import play.data.FormFactory;
 import play.db.ebean.Transactional;
+import play.libs.F;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
@@ -16,6 +19,7 @@ import views.html.project;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class ProjectController extends Controller{
 
@@ -45,10 +49,13 @@ public class ProjectController extends Controller{
     @Security.Authenticated(Secured.class)
     public Result project(String id) {
         Project proj = Project.get(id);
-        if (proj.getEmployees().contains(User.getWithEmail(session().get("email")))) {
+        if (User.getWithEmail(session().get("email")) instanceof Employee)  {
+            if (proj.getEmployees().contains(User.getWithEmail(session().get("email")))) {
+                return ok(project.render(proj, User.getWithEmail(session().get("email"))));
+            } else return forbidden();
+        } else {
             return ok(project.render(proj, User.getWithEmail(session().get("email"))));
-        } else return forbidden("<h1>403 Forbidden</h1>");
-
+        }
     }
 
     @Security.Authenticated(Secured.class)
@@ -67,7 +74,9 @@ public class ProjectController extends Controller{
         Form<Project> form;
         try {
             project = Project.getFinder().byId(id);
-            assert project != null;
+            if(project == null) {
+                return badRequest();
+            }
             form = formFactory.form(Project.class).fill(project);
         } catch (Exception ex) {
             return badRequest("<h1>400 Bad Request</h1>");
@@ -88,13 +97,18 @@ public class ProjectController extends Controller{
     @With(Auth.AuthAdmin.class)
     @Transactional
     public Result form() {
-        Form<Project> form = formFactory.form(Project.class).bindFromRequest();
+       Form<Project> form = formFactory.form(Project.class).bindFromRequest();
+        Project project = form.get();
         if (!form.hasErrors()) {
-            Project project = form.get();
             if (project.getId() == null) {
+                return badRequest();
+            } else if (project.getId().equals("")) {
+                project.setId(UUID.randomUUID().toString());
                 project.save();
-            } else {
+                System.out.println("project saved");
+            } else if(!project.getId().equals("")) {
                 project.update();
+                System.out.println("Project updated");
             }
             return redirect(controllers.routes.ProjectController.projects());
         }

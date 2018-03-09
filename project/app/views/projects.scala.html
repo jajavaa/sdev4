@@ -4,7 +4,6 @@
     <a href="@routes.ProjectController.create()">Create new project</a>
     <table>
         <tr>
-            <th>#</th>
             <th>Name</th>
             <th>Start</th>
             <th>End</th>
@@ -15,11 +14,9 @@
         @for(project <- projects) {
             <tr>
                 <td>
-                    <a href="@routes.ProjectController.project(project.getId)">@project.getId</a>
-                </td>
-                <td>@project.getName</td>
-                <td>@project.getStart.toString("dd-MM-yy")</td>
-                <td>@project.getEnd.toString("dd-MM-yy")</td>
+                    <a href="@routes.ProjectController.project(project.getId)">@project.getName</a></td>
+                <td>@project.getStartString</td>
+                <td>@project.getEndString</td>
                 @if(user.getRole.equals("admin")) {
                     <td>@project.getEmployees.size</td>
                     <td>

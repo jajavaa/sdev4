@@ -1,5 +1,14 @@
-@(form: play.data.Form[models.Project], user: models.users.User)
+@import helper._
+@(projectForm: play.data.Form[models.Project], user: models.users.User)
+
 
 @main("Add/Change project", user) {
-
+    @form(action = routes.ProjectController.form) {
+        @CSRF.formField
+        @inputText(projectForm("id"), '_label -> "ID")
+        @inputText(projectForm("name"), '_label -> "Name")
+        @inputDate(projectForm("start"), '_label -> "Start Time")
+        @inputDate(projectForm("end"), '_label -> "End Time")
+        <input type="submit" value="Add/Update Project">
+    }
 }

@@ -1,4 +1,4 @@
-@(departments: java.util.List[models.Department], department: models.Department, user: models.users.User)
+@(departments: java.util.List[models.Department], user: models.users.User)
 
 @main("Department View", user) {
     <table>
@@ -6,52 +6,24 @@
             <th>#</th>
             <th>Title</th>
         </tr>
-        @for(department <- departments) {
-            <tr>
-                <td>
-                    <a href="@routes.DepartmentController.departments(department.getId)">@department.getId</a>
-                </td>
-                <td>@department.getTitle</td>
-            </tr>
-        }
-    </table>
-    <h1>@department.getTitle</h1>
-    <ul>
-        <li>ID:</li>
-        <li>@department.getId</li>
-        <li>Title:</li>
-        <li>@department.getTitle</li>
-        <li>Size: </li>
-        <li>@department.getEmployees.size()</li>
-        @*<li>*@
-            @*<a href="@routes.HomeController.editDepartment(department.getId)">Edit</a>*@
-        @*</li>*@
-    </ul>
-    <table>
-        <tr>
-            <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Department</th>
-            <th>Address</th>
-        </tr>
-        @for(employee <- department.getEmployees) {
-            <tr>
-                <td>
-                    <a href="@routes.EmployeeController.employee(employee.getId)">@employee.getId</a>
-                </td>
-                <td>@employee.getFirstName</td>
-                <td>@employee.getLastName</td>
-                <td>
-                    <a href="mailto:@employee.getEmail">@employee.getEmail</a>
-                </td>
-                <td>
-                    <a href="tel:@employee.getPhone">@employee.getPhone</a>
-                </td>
-                <td>@employee.getAddress.toString</td>
-            </tr>
+        @if(user.isInstanceOf[models.users.Employee]) {
+           @defining(user.asInstanceOf[models.users.Employee]) { emp =>
+                <tr>
+                    <td><a href="@routes.DepartmentController.department(emp.getDepartment.getId)">@emp.getDepartment.getId</a></td>
+                    <td>@emp.getDepartment.getTitle</td>
+                </tr>
+           }
+        } else {
+            @if(user.isInstanceOf[models.users.Admin]) {
+                @for(department <- departments) {
+                    <tr>
+                        <td>
+                            <a href="@routes.DepartmentController.department(department.getId)">@department.getId</a>
+                        </td>
+                        <td>@department.getTitle</td>
+                    </tr>
+                }
+            }
         }
     </table>
 }

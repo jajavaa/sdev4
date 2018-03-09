@@ -1,7 +1,7 @@
 
 // @GENERATOR:play-routes-compiler
-// @SOURCE:/home/konrad/Documents/sdev4/project/conf/routes
-// @DATE:Thu Mar 08 21:30:03 GMT 2018
+// @SOURCE:/media/sf_E_DRIVE/sdev4/project/conf/routes
+// @DATE:Fri Mar 09 14:03:18 GMT 2018
 
 package router
 
@@ -53,7 +53,7 @@ class Routes(
 
   def documentation = List(
     ("""GET""", this.prefix, """controllers.HomeController.index(department:String ?= "0")"""),
-    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """departments""", """controllers.DepartmentController.departments(department:String ?= "0")"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """departments""", """controllers.DepartmentController.departments"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """projects""", """controllers.ProjectController.projects"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """project/""" + "$" + """id<[^/]+>""", """controllers.ProjectController.project(id:String)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """createProject""", """controllers.ProjectController.create"""),
@@ -63,6 +63,8 @@ class Routes(
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """login""", """controllers.LoginController.login"""),
     ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """loginSubmit""", """controllers.LoginController.loginSubmit"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """logout""", """controllers.LoginController.logout"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """department/""" + "$" + """id<[^/]+>""", """controllers.DepartmentController.department(id:String)"""),
+    ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """projectSubmit""", """controllers.ProjectController.form"""),
     Nil
   ).foldLeft(List.empty[(String,String,String)]) { (s,e) => e.asInstanceOf[Any] match {
     case r @ (_,_,_) => s :+ r.asInstanceOf[(String,String,String)]
@@ -93,12 +95,12 @@ class Routes(
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("departments")))
   )
   private[this] lazy val controllers_DepartmentController_departments1_invoker = createInvoker(
-    DepartmentController_3.departments(fakeValue[String]),
+    DepartmentController_3.departments,
     play.api.routing.HandlerDef(this.getClass.getClassLoader,
       "router",
       "controllers.DepartmentController",
       "departments",
-      Seq(classOf[String]),
+      Nil,
       "GET",
       this.prefix + """departments""",
       """""",
@@ -268,6 +270,42 @@ class Routes(
     )
   )
 
+  // @LINE:12
+  private[this] lazy val controllers_DepartmentController_department11_route = Route("GET",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("department/"), DynamicPart("id", """[^/]+""",true)))
+  )
+  private[this] lazy val controllers_DepartmentController_department11_invoker = createInvoker(
+    DepartmentController_3.department(fakeValue[String]),
+    play.api.routing.HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.DepartmentController",
+      "department",
+      Seq(classOf[String]),
+      "GET",
+      this.prefix + """department/""" + "$" + """id<[^/]+>""",
+      """""",
+      Seq()
+    )
+  )
+
+  // @LINE:13
+  private[this] lazy val controllers_ProjectController_form12_route = Route("POST",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("projectSubmit")))
+  )
+  private[this] lazy val controllers_ProjectController_form12_invoker = createInvoker(
+    ProjectController_2.form,
+    play.api.routing.HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.ProjectController",
+      "form",
+      Nil,
+      "POST",
+      this.prefix + """projectSubmit""",
+      """""",
+      Seq()
+    )
+  )
+
 
   def routes: PartialFunction[RequestHeader, Handler] = {
   
@@ -279,8 +317,8 @@ class Routes(
   
     // @LINE:2
     case controllers_DepartmentController_departments1_route(params@_) =>
-      call(params.fromQuery[String]("department", Some("0"))) { (department) =>
-        controllers_DepartmentController_departments1_invoker.call(DepartmentController_3.departments(department))
+      call { 
+        controllers_DepartmentController_departments1_invoker.call(DepartmentController_3.departments)
       }
   
     // @LINE:3
@@ -335,6 +373,18 @@ class Routes(
     case controllers_LoginController_logout10_route(params@_) =>
       call { 
         controllers_LoginController_logout10_invoker.call(LoginController_4.logout)
+      }
+  
+    // @LINE:12
+    case controllers_DepartmentController_department11_route(params@_) =>
+      call(params.fromPath[String]("id", None)) { (id) =>
+        controllers_DepartmentController_department11_invoker.call(DepartmentController_3.department(id))
+      }
+  
+    // @LINE:13
+    case controllers_ProjectController_form12_route(params@_) =>
+      call { 
+        controllers_ProjectController_form12_invoker.call(ProjectController_2.form)
       }
   }
 }

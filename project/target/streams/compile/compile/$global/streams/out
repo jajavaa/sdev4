@@ -1,5 +1,7 @@
-[error] /home/konrad/Documents/sdev4/project/app/views/projects.scala.html:26:62: not enough arguments for method update: (id: String)play.api.mvc.Call.
-[error] Unspecified value parameter id.
-[error]                     <a href="@routes.ProjectController.update()"></a>
-[error]                                                              ^
-[error] one error found
+[error] /media/sf_E_DRIVE/sdev4/project/app/views/addEmployee.scala.html:5:20: illegal start of simple expression
+[error]     @form(action = )
+[error]                    ^
+[error] /media/sf_E_DRIVE/sdev4/project/app/views/addEmployee.scala.html:6:2: ')' expected but '}' found.
+[error] }
+[error]  ^
+[error] two errors found

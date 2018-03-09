@@ -1,5 +1,5 @@
 GET     /                       controllers.HomeController.index(department: String?="0")
-GET     /departments            controllers.DepartmentController.departments(department: String?="0")
+GET     /departments            controllers.DepartmentController.departments
 GET     /projects               controllers.ProjectController.projects
 GET     /project/:id            controllers.ProjectController.project(id: String)
 GET     /createProject          controllers.ProjectController.create
@@ -9,3 +9,5 @@ GET     /project/delete/:id     controllers.ProjectController.delete(id: String)
 GET     /login                  controllers.LoginController.login
 POST    /loginSubmit            controllers.LoginController.loginSubmit
 GET     /logout                 controllers.LoginController.logout
+GET     /department/:id         controllers.DepartmentController.department(id: String)
+POST    /projectSubmit          controllers.ProjectController.form

@@ -11,6 +11,6 @@ public class HomeController extends Controller {
     public HomeController() {}
 
     public Result index(String id) {
-        return ok(departments.render(Department.getAll(), Department.get(id), User.getWithEmail(session().get("email"))));
+        return ok(departments.render(Department.getAll(), User.getWithEmail(session().get("email"))));
     }
 }

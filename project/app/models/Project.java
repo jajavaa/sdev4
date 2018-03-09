@@ -5,17 +5,19 @@ import io.ebean.Model;
 import models.users.Employee;
 import org.joda.time.DateTime;
 import javax.persistence.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Entity
-
 public class Project extends Model {
 
     @Id
     private String id;
     private String name;
-    private DateTime start;
-    private DateTime end;
+    private Date start;
+    private Date end;
 
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Employee> employees;
@@ -25,7 +27,7 @@ public class Project extends Model {
     public Project() {
     }
 
-    public Project(String id, String name, DateTime start, DateTime end, List<Employee> employees) {
+    public Project(String id, String name, Date start, Date end, List<Employee> employees) {
         this.id = id;
         this.name = name;
         this.start = start;
@@ -37,6 +39,10 @@ public class Project extends Model {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -45,19 +51,27 @@ public class Project extends Model {
         this.name = name;
     }
 
-    public DateTime getStart() {
+    public Date getStart() {
         return start;
     }
 
-    public void setStart(DateTime start) {
+    public String getStartString() {
+        return new SimpleDateFormat("dd-MM-yy").format(start);
+    }
+
+    public void setStart(Date start) {
         this.start = start;
     }
 
-    public DateTime getEnd() {
+    public Date getEnd() {
         return end;
     }
 
-    public void setEnd(DateTime end) {
+    public String getEndString() {
+        return new SimpleDateFormat("dd-MM-yy").format(end);
+    }
+
+    public void setEnd(Date end) {
         this.end = end;
     }
 

@@ -1,7 +1,7 @@
 
 // @GENERATOR:play-routes-compiler
-// @SOURCE:/home/konrad/Documents/sdev4/project/conf/routes
-// @DATE:Thu Mar 08 21:30:03 GMT 2018
+// @SOURCE:/media/sf_E_DRIVE/sdev4/project/conf/routes
+// @DATE:Fri Mar 09 14:03:18 GMT 2018
 
 import play.api.mvc.Call
 
@@ -37,6 +37,12 @@ package controllers {
       Call("GET", _prefix + { _defaultPrefix } + "createProject")
     }
   
+    // @LINE:13
+    def form(): Call = {
+      
+      Call("POST", _prefix + { _defaultPrefix } + "projectSubmit")
+    }
+  
     // @LINE:8
     def delete(id:String): Call = {
       
@@ -58,10 +64,16 @@ package controllers {
     }
 
   
-    // @LINE:2
-    def departments(department:String = "0"): Call = {
+    // @LINE:12
+    def department(id:String): Call = {
       
-      Call("GET", _prefix + { _defaultPrefix } + "departments" + play.core.routing.queryString(List(if(department == "0") None else Some(implicitly[play.api.mvc.QueryStringBindable[String]].unbind("department", department)))))
+      Call("GET", _prefix + { _defaultPrefix } + "department/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("id", id)))
+    }
+  
+    // @LINE:2
+    def departments(): Call = {
+      
+      Call("GET", _prefix + { _defaultPrefix } + "departments")
     }
   
   }

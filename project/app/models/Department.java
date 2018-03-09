@@ -37,10 +37,6 @@ public class Department extends Model {
         return this.id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getTitle() {
         return this.title;
     }

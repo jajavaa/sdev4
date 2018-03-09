@@ -25,7 +25,7 @@ public class EmployeeController extends Controller {
         Employee emp = Employee.get(id);
         if (emp.getEmail().equals(session().get("email"))) {
             return ok(employee.render(emp, User.getWithEmail(session().get("email"))));
-        } else return unauthorized();
+        } else return forbidden("Error 403: Forbidden");
     }
 
     @Security.Authenticated(Secured.class)

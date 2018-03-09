@@ -1,7 +1,7 @@
 
 // @GENERATOR:play-routes-compiler
-// @SOURCE:/home/konrad/Documents/sdev4/project/conf/routes
-// @DATE:Thu Mar 08 21:30:03 GMT 2018
+// @SOURCE:/media/sf_E_DRIVE/sdev4/project/conf/routes
+// @DATE:Fri Mar 09 14:03:18 GMT 2018
 
 import play.api.routing.JavaScriptReverseRoute
 
@@ -50,6 +50,16 @@ package controllers.javascript {
       """
     )
   
+    // @LINE:13
+    def form: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.ProjectController.form",
+      """
+        function() {
+          return _wA({method:"POST", url:"""" + _prefix + { _defaultPrefix } + """" + "projectSubmit"})
+        }
+      """
+    )
+  
     // @LINE:8
     def delete: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.ProjectController.delete",
@@ -80,12 +90,22 @@ package controllers.javascript {
     }
 
   
+    // @LINE:12
+    def department: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.DepartmentController.department",
+      """
+        function(id0) {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "department/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("id", id0))})
+        }
+      """
+    )
+  
     // @LINE:2
     def departments: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.DepartmentController.departments",
       """
-        function(department0) {
-          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "departments" + _qS([(department0 == null ? null : (""" + implicitly[play.api.mvc.QueryStringBindable[String]].javascriptUnbind + """)("department", department0))])})
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "departments"})
         }
       """
     )
