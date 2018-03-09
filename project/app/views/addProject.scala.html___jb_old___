@@ -9,15 +9,15 @@
         @inputText(projectForm("name"), '_label -> "Name")
         @if(project == null) {
             @for(employee <- employees) {
-                <input type="checkbox" id="employee" name="@employee.getId">
+                <input type="checkbox" id="employee" name="employee">
                 <label for="employee">@employee.getNames (@employee.getDepartment.getTitle)</label>
             }
         } else {
             @for(employee <- employees) {
                 @if(project.getEmployees.contains(employee)) {
-                    <input type="checkbox" id="employee" name="@employee.getId" checked>
+                    <input type="checkbox" id="employee" name="employee" checked>
                 } else {
-                    <input type="checkbox" id="employee" name="@employee.getId">
+                    <input type="checkbox" id="employee" name="employee">
                 }
                 <label for="employee">@employee.getNames (@employee.getDepartment.getTitle)</label>
             }

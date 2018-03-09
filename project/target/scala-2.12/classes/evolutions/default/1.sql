@@ -5,26 +5,27 @@
 
 create table address (
   id                            bigint auto_increment not null,
-  line_one                      varchar(255),
-  line_two                      varchar(255),
-  city                          varchar(255),
-  county                        varchar(255),
-  code                          varchar(255),
-  country                       varchar(255),
+  line_one                      varchar(255) not null,
+  line_two                      varchar(255) not null,
+  city                          varchar(255) not null,
+  county                        varchar(255) not null,
+  code                          varchar(255) not null,
+  country                       varchar(255) not null,
   constraint pk_address primary key (id)
 );
 
 create table department (
   id                            varchar(255) not null,
-  title                         varchar(255),
+  title                         varchar(255) not null,
   constraint pk_department primary key (id)
 );
 
 create table project (
   id                            varchar(255) not null,
-  name                          varchar(255),
-  start                         timestamp,
-  end                           timestamp,
+  name                          varchar(255) not null,
+  start                         timestamp not null,
+  end                           timestamp not null,
+  constraint uq_project_name unique (name),
   constraint pk_project primary key (id)
 );
 
@@ -35,15 +36,16 @@ create table project_user (
 );
 
 create table user (
-  role                          varchar(255),
+  role                          varchar(255) not null,
   id                            varchar(255) not null,
-  first_name                    varchar(255),
-  last_name                     varchar(255),
-  password                      varchar(255),
-  email                         varchar(255),
-  phone                         varchar(255),
+  first_name                    varchar(255) not null,
+  last_name                     varchar(255) not null,
+  password                      varchar(255) not null,
+  email                         varchar(255) not null,
+  phone                         varchar(255) not null,
   address_id                    bigint,
   department_id                 varchar(255),
+  constraint uq_user_email unique (email),
   constraint uq_user_address_id unique (address_id),
   constraint pk_user primary key (id)
 );

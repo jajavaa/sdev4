@@ -1,6 +1,7 @@
 package models.users;
 
 import io.ebean.Finder;
+import io.ebean.annotation.NotNull;
 import models.Address;
 import models.Department;
 import models.Project;
@@ -13,12 +14,15 @@ import java.util.List;
 public class Employee extends User {
 
     @OneToOne
+    @NotNull
     private Address address;
 
     @ManyToOne
+    @NotNull
     private Department department;
 
     @ManyToMany(mappedBy = "employees")
+    @NotNull
     private List<Project> projects;
 
     private static Finder<String, Employee> finder = new Finder<>(Employee.class);
@@ -64,6 +68,10 @@ public class Employee extends User {
 
     public static Finder<String, Employee> getFinder() {
         return finder;
+    }
+
+    public static List<Employee> getAll() {
+        return finder.all();
     }
 
     public static Employee get(String id) {

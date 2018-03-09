@@ -1,7 +1,7 @@
 
 // @GENERATOR:play-routes-compiler
 // @SOURCE:/media/sf_E_DRIVE/sdev4/project/conf/routes
-// @DATE:Fri Mar 09 14:03:18 GMT 2018
+// @DATE:Fri Mar 09 14:32:50 GMT 2018
 
 import play.api.mvc.Call
 
@@ -131,6 +131,12 @@ package controllers {
     def employee(id:String): Call = {
       
       Call("GET", _prefix + { _defaultPrefix } + "employee/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("id", id)))
+    }
+  
+    // @LINE:14
+    def form(): Call = {
+      
+      Call("POST", _prefix + { _defaultPrefix } + "employeeSubmit")
     }
   
   }

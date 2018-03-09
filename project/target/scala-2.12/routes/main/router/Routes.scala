@@ -1,7 +1,7 @@
 
 // @GENERATOR:play-routes-compiler
 // @SOURCE:/media/sf_E_DRIVE/sdev4/project/conf/routes
-// @DATE:Fri Mar 09 14:03:18 GMT 2018
+// @DATE:Fri Mar 09 14:32:50 GMT 2018
 
 package router
 
@@ -65,6 +65,7 @@ class Routes(
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """logout""", """controllers.LoginController.logout"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """department/""" + "$" + """id<[^/]+>""", """controllers.DepartmentController.department(id:String)"""),
     ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """projectSubmit""", """controllers.ProjectController.form"""),
+    ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """employeeSubmit""", """controllers.EmployeeController.form"""),
     Nil
   ).foldLeft(List.empty[(String,String,String)]) { (s,e) => e.asInstanceOf[Any] match {
     case r @ (_,_,_) => s :+ r.asInstanceOf[(String,String,String)]
@@ -306,6 +307,24 @@ class Routes(
     )
   )
 
+  // @LINE:14
+  private[this] lazy val controllers_EmployeeController_form13_route = Route("POST",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("employeeSubmit")))
+  )
+  private[this] lazy val controllers_EmployeeController_form13_invoker = createInvoker(
+    EmployeeController_1.form,
+    play.api.routing.HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.EmployeeController",
+      "form",
+      Nil,
+      "POST",
+      this.prefix + """employeeSubmit""",
+      """""",
+      Seq()
+    )
+  )
+
 
   def routes: PartialFunction[RequestHeader, Handler] = {
   
@@ -385,6 +404,12 @@ class Routes(
     case controllers_ProjectController_form12_route(params@_) =>
       call { 
         controllers_ProjectController_form12_invoker.call(ProjectController_2.form)
+      }
+  
+    // @LINE:14
+    case controllers_EmployeeController_form13_route(params@_) =>
+      call { 
+        controllers_EmployeeController_form13_invoker.call(EmployeeController_1.form)
       }
   }
 }

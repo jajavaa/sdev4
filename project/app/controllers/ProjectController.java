@@ -1,5 +1,6 @@
 package controllers;
 
+import io.ebean.DataIntegrityException;
 import models.Project;
 import models.users.Employee;
 import models.users.User;
@@ -63,7 +64,7 @@ public class ProjectController extends Controller{
     @Transactional
     public Result create() {
         Form<Project> form = formFactory.form(Project.class);
-        return ok(addProject.render(form, User.getWithEmail(session().get("email"))));
+        return ok(addProject.render(form, null, Employee.getAll(), User.getWithEmail(session().get("email"))));
     }
 
     @Security.Authenticated(Secured.class)
@@ -82,7 +83,7 @@ public class ProjectController extends Controller{
             return badRequest("<h1>400 Bad Request</h1>");
         }
 
-        return ok(addProject.render(form, User.getWithEmail(session().get("email"))));
+        return ok(addProject.render(form, project, Employee.getAll(),User.getWithEmail(session().get("email"))));
     }
 
     @Security.Authenticated(Secured.class)
@@ -90,7 +91,7 @@ public class ProjectController extends Controller{
     public Result delete(String id) {
         Project.getFinder().ref(id).delete();
         flash("success", "Customer has been deleted");
-        return redirect(routes.HomeController.index("0"));
+        return redirect(routes.ProjectController.projects());
     }
 
     @Security.Authenticated(Secured.class)
@@ -99,19 +100,28 @@ public class ProjectController extends Controller{
     public Result form() {
        Form<Project> form = formFactory.form(Project.class).bindFromRequest();
         Project project = form.get();
-        if (!form.hasErrors()) {
-            if (project.getId() == null) {
-                return badRequest();
-            } else if (project.getId().equals("")) {
-                project.setId(UUID.randomUUID().toString());
-                project.save();
-                System.out.println("project saved");
-            } else if(!project.getId().equals("")) {
-                project.update();
-                System.out.println("Project updated");
+        for(Employee employee: Employee.getAll()) {
+            if(form.field(employee.getId()).getValue().isPresent()) {
+                project.getEmployees().add(employee);
             }
-            return redirect(controllers.routes.ProjectController.projects());
         }
-        return badRequest(addProject.render(form, User.getWithEmail(session().get("email"))));
+        try {
+            if (!form.hasErrors()) {
+                if (project.getId() == null) {
+                    return badRequest();
+                } else if (project.getId().equals("")) {
+                    project.setId(UUID.randomUUID().toString());
+                    project.save();
+                    System.out.println("project saved");
+                } else if (!project.getId().equals("")) {
+                    project.update();
+                    System.out.println("Project updated");
+                }
+                return redirect(controllers.routes.ProjectController.projects());
+            }
+        } catch (DataIntegrityException e) {
+            return ok(addProject.render(form, project, Employee.getAll(), User.getWithEmail(session().get("email"))));
+        }
+        return badRequest(addProject.render(form, project, Employee.getAll(), User.getWithEmail(session().get("email"))));
     }
 }

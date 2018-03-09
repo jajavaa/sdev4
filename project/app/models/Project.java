@@ -2,6 +2,7 @@ package models;
 
 import io.ebean.Finder;
 import io.ebean.Model;
+import io.ebean.annotation.NotNull;
 import models.users.Employee;
 import org.joda.time.DateTime;
 import javax.persistence.*;
@@ -15,8 +16,12 @@ public class Project extends Model {
 
     @Id
     private String id;
+    @Column(unique = true)
+    @NotNull
     private String name;
+    @NotNull
     private Date start;
+    @NotNull
     private Date end;
 
     @ManyToMany(cascade = CascadeType.ALL)

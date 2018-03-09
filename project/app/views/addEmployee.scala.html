@@ -2,5 +2,11 @@
 @(employeeForm: play.data.Form[models.users.Employee], user: models.users.User)
 
 @main("Add/Update Employee", user) {
-    
+    @form(action = routes.EmployeeController.form()) {
+        @inputText(employeeForm("id"), 'label -> "Employee ID", 'readonly -> "readonly")
+        @inputText(employeeForm("firstName"), 'label -> "First Name")
+        @inputText(employeeForm("lastName"), 'label -> "Last Name")
+        @inputPassword(employeeForm("password"), 'label -> "Password")
+        
+    }
 }

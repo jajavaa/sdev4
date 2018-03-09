@@ -1,7 +1,7 @@
-[error] /media/sf_E_DRIVE/sdev4/project/app/views/addEmployee.scala.html:5:20: illegal start of simple expression
-[error]     @form(action = )
-[error]                    ^
-[error] /media/sf_E_DRIVE/sdev4/project/app/views/addEmployee.scala.html:6:2: ')' expected but '}' found.
-[error] }
-[error]  ^
+[error] /media/sf_E_DRIVE/sdev4/project/app/views/addProject.scala.html:11:57: '<-' expected but ')' found.
+[error]             @for(project.getEmployees.contains(employee)) {
+[error]                                                         ^
+[error] /media/sf_E_DRIVE/sdev4/project/app/views/addProject.scala.html:17:9: illegal start of simple expression
+[error]         @inputDate(projectForm("start"), '_label -> "Start Time")
+[error]         ^
 [error] two errors found

@@ -6,6 +6,7 @@ import play.data.Form;
 import play.data.FormFactory;
 import play.db.ebean.Transactional;
 import play.mvc.*;
+import views.html.addEmployee;
 import views.html.employee;
 
 import javax.inject.Inject;
@@ -30,14 +31,8 @@ public class EmployeeController extends Controller {
 
     @Security.Authenticated(Secured.class)
     @With(Auth.AuthAdmin.class)
-    public Result createEmployee() {
-        return ok();
-    }
-
-    @Security.Authenticated(Secured.class)
-    @With(Auth.AuthAdmin.class)
     @Transactional
-    public Result updateEmployee(String id) {
+    public Result update(String id) {
         Employee employee;
         Form<Employee> form;
         try {
@@ -47,33 +42,31 @@ public class EmployeeController extends Controller {
         } catch (Exception ex) {
             return badRequest("error");
         }
-        return ok("Updated");
+        return ok(addEmployee.render(form, User.getWithEmail(session().get("email"))));
     }
 
     @Security.Authenticated(Secured.class)
     @With(Auth.AuthAdmin.class)
     @Transactional
-    public Result deleteEmployee(String id) {
+    public Result delete(String id) {
         Employee.getFinder().ref(id).delete();
         flash("success", "Employee has been deleted");
         return redirect(routes.HomeController.index("0"));
     }
 
-    public Result employeeForm() {
-        Form<Employee> newEmployeeForm = formFactory.form(Employee.class).bindFromRequest();
-        if (!newEmployeeForm.hasErrors()) {
-            Employee employee = newEmployeeForm.get();
+    public Result form() {
+        Form<Employee> form = formFactory.form(Employee.class).bindFromRequest();
+        if (!form.hasErrors()) {
+            Employee employee = form.get();
             if (employee.getId() == null) {
                 employee.save();
-                flash("success", "Product " + employee.getNames() + " was added");
             } else if (employee.getId() != null) {
                 employee.update();
-                flash("success", "Product " + employee.getNames() + " was updated");
             }
         }
-//        else {
-//            return badRequest(addEmployee.render(newEmployeeForm, User.find(session().get("email"))));
-//        }
+        else {
+            return badRequest(addEmployee.render(form, User.getWithEmail(session().get("email"))));
+        }
         Http.MultipartFormData data = request().body().asMultipartFormData();
         Http.MultipartFormData.FilePart image = data.getFile("upload");
         return redirect(routes.HomeController.index("0"));

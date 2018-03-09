@@ -2,6 +2,7 @@ package models;
 
 import io.ebean.Finder;
 import io.ebean.Model;
+import io.ebean.annotation.NotNull;
 import models.users.Employee;
 
 import javax.persistence.Entity;
@@ -17,9 +18,12 @@ public class Department extends Model {
 
     @Id
     private String id;
+
+    @NotNull
     private String title;
 
     @OneToMany
+    @NotNull
     private List<Employee> employees;
 
     private static Finder<String, Department> find = new Finder<>(Department.class);

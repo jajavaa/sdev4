@@ -1,7 +1,7 @@
 
 // @GENERATOR:play-routes-compiler
 // @SOURCE:/media/sf_E_DRIVE/sdev4/project/conf/routes
-// @DATE:Fri Mar 09 14:03:18 GMT 2018
+// @DATE:Fri Mar 09 14:32:50 GMT 2018
 
 import play.api.routing.JavaScriptReverseRoute
 
@@ -186,6 +186,16 @@ package controllers.javascript {
       """
         function(id0) {
           return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "employee/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("id", id0))})
+        }
+      """
+    )
+  
+    // @LINE:14
+    def form: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.EmployeeController.form",
+      """
+        function() {
+          return _wA({method:"POST", url:"""" + _prefix + { _defaultPrefix } + """" + "employeeSubmit"})
         }
       """
     )

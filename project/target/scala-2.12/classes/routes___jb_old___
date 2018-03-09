@@ -11,4 +11,4 @@ POST    /loginSubmit            controllers.LoginController.loginSubmit
 GET     /logout                 controllers.LoginController.logout
 GET     /department/:id         controllers.DepartmentController.department(id: String)
 POST    /projectSubmit          controllers.ProjectController.form
-POST    /employeeSubmit         controllers.EmployeeController.form
+POST    /employeeSubmit         controllers.EmployeeController.

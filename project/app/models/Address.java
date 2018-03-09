@@ -1,6 +1,7 @@
 package models;
 
 import io.ebean.Model;
+import io.ebean.annotation.NotNull;
 import play.data.validation.Constraints.*;
 
 import javax.persistence.Entity;
@@ -11,10 +12,17 @@ public class Address extends Model {
 
     @Id
     private Long id;
-    private String lineOne, lineTwo;
+    @NotNull
+    private String lineOne;
+    @NotNull
+    private String lineTwo;
+    @NotNull
     private String city;
+    @NotNull
     private String county;
+    @NotNull
     private String code;
+    @NotNull
     private String country;
 
     public Address() {
