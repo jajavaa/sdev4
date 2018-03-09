@@ -1,6 +1,9 @@
 package controllers;
 
 import models.Address;
+import models.Department;
+import models.Project;
+import models.users.Admin;
 import models.users.Employee;
 import models.users.User;
 import play.data.Form;
@@ -9,6 +12,7 @@ import play.db.ebean.Transactional;
 import play.mvc.*;
 import views.html.addEmployee;
 import views.html.employee;
+import views.html.employees;
 
 import javax.inject.Inject;
 
@@ -22,10 +26,16 @@ public class EmployeeController extends Controller {
     }
 
     @Security.Authenticated(Secured.class)
+    @With(Auth.AuthAdmin.class)
+    public Result employees() {
+        return ok(employees.render(Employee.getAll(), User.getWithEmail(session().get("email"))));
+    }
+
+    @Security.Authenticated(Secured.class)
     @With(Auth.AuthEmployee.class)
     public Result employee(String id) {
         Employee emp = Employee.get(id);
-        if (emp.getEmail().equals(session().get("email"))) {
+        if (emp.getEmail().equals(session().get("email")) || User.getWithEmail(session().get("email")).getClass().equals(Admin.class)) {
             return ok(employee.render(emp, User.getWithEmail(session().get("email"))));
         } else return forbidden("Error 403: Forbidden");
     }
@@ -45,7 +55,7 @@ public class EmployeeController extends Controller {
         } catch (Exception ex) {
             return badRequest("error");
         }
-        return ok(addEmployee.render(employeeForm, User.getWithEmail(session().get("email"))));
+        return ok(addEmployee.render(employeeForm, addressForm, employee, Department.getAll(), Project.getAll(), User.getWithEmail(session().get("email"))));
     }
 
     @Security.Authenticated(Secured.class)
@@ -58,17 +68,21 @@ public class EmployeeController extends Controller {
     }
 
     public Result form() {
-        Form<Employee> form = formFactory.form(Employee.class).bindFromRequest();
-        if (!form.hasErrors()) {
-            Employee employee = form.get();
+        Form<Address> addressForm = formFactory.form(Address.class).bindFromRequest();
+        Form<Employee> employeeForm = formFactory.form(Employee.class).bindFromRequest();
+        Employee employee = employeeForm.get();
+        if (!employeeForm.hasErrors()) {
+
+            Address address = addressForm.get();
             if (employee.getId() == null) {
                 employee.save();
             } else if (employee.getId() != null) {
+                employee.setAddress(address);
                 employee.update();
             }
         }
         else {
-            return badRequest(addEmployee.render(form, User.getWithEmail(session().get("email"))));
+            return ok(addEmployee.render(employeeForm, addressForm, employee, Department.getAll(), Project.getAll(), User.getWithEmail(session().get("email"))));
         }
         Http.MultipartFormData data = request().body().asMultipartFormData();
         Http.MultipartFormData.FilePart image = data.getFile("upload");

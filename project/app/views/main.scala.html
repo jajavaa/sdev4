@@ -12,8 +12,15 @@
 <body>
     <nav>
         <ul>
-            <li><a href="@routes.HomeController.index()">Department View</a></li>
-            <li><a href="@routes.ProjectController.projects()">Project View</a></li>
+            <li>
+                <a href="@routes.HomeController.index()">Department View</a>
+            </li>
+            <li>
+                <a href="@routes.ProjectController.projects()">Project View</a>
+            </li>
+            <li>
+                <a href="@routes.EmployeeController.employees">Employee View</a>
+            </li>
             @if(user != null) {
                 <li>Logged in as @user.getClass.getSimpleName: <a href="@routes.EmployeeController.employee(user.getId)">@user.getFirstName @user.getLastName</a></li>
                 <li><a href="@routes.LoginController.logout()">Logout</a></li>

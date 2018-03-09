@@ -1,7 +1,7 @@
 
 // @GENERATOR:play-routes-compiler
 // @SOURCE:/media/sf_E_DRIVE/sdev4/project/conf/routes
-// @DATE:Fri Mar 09 14:32:50 GMT 2018
+// @DATE:Fri Mar 09 18:11:15 GMT 2018
 
 package router
 
@@ -66,6 +66,7 @@ class Routes(
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """department/""" + "$" + """id<[^/]+>""", """controllers.DepartmentController.department(id:String)"""),
     ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """projectSubmit""", """controllers.ProjectController.form"""),
     ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """employeeSubmit""", """controllers.EmployeeController.form"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """employees""", """controllers.EmployeeController.employees"""),
     Nil
   ).foldLeft(List.empty[(String,String,String)]) { (s,e) => e.asInstanceOf[Any] match {
     case r @ (_,_,_) => s :+ r.asInstanceOf[(String,String,String)]
@@ -325,6 +326,24 @@ class Routes(
     )
   )
 
+  // @LINE:15
+  private[this] lazy val controllers_EmployeeController_employees14_route = Route("GET",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("employees")))
+  )
+  private[this] lazy val controllers_EmployeeController_employees14_invoker = createInvoker(
+    EmployeeController_1.employees,
+    play.api.routing.HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.EmployeeController",
+      "employees",
+      Nil,
+      "GET",
+      this.prefix + """employees""",
+      """""",
+      Seq()
+    )
+  )
+
 
   def routes: PartialFunction[RequestHeader, Handler] = {
   
@@ -410,6 +429,12 @@ class Routes(
     case controllers_EmployeeController_form13_route(params@_) =>
       call { 
         controllers_EmployeeController_form13_invoker.call(EmployeeController_1.form)
+      }
+  
+    // @LINE:15
+    case controllers_EmployeeController_employees14_route(params@_) =>
+      call { 
+        controllers_EmployeeController_employees14_invoker.call(EmployeeController_1.employees)
       }
   }
 }

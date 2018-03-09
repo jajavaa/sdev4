@@ -4,7 +4,7 @@
 # --- !Ups
 
 create table address (
-  id                            bigint auto_increment not null,
+  id                            varchar(255) not null,
   line_one                      varchar(255) not null,
   line_two                      varchar(255) not null,
   city                          varchar(255) not null,
@@ -43,7 +43,7 @@ create table user (
   password                      varchar(255) not null,
   email                         varchar(255) not null,
   phone                         varchar(255) not null,
-  address_id                    bigint,
+  address_id                    varchar(255),
   department_id                 varchar(255),
   constraint uq_user_email unique (email),
   constraint uq_user_address_id unique (address_id),

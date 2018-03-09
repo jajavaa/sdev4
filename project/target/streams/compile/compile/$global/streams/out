@@ -1,7 +1,4 @@
-[error] /media/sf_E_DRIVE/sdev4/project/app/views/addProject.scala.html:11:57: '<-' expected but ')' found.
-[error]             @for(project.getEmployees.contains(employee)) {
-[error]                                                         ^
-[error] /media/sf_E_DRIVE/sdev4/project/app/views/addProject.scala.html:17:9: illegal start of simple expression
-[error]         @inputDate(projectForm("start"), '_label -> "Start Time")
-[error]         ^
-[error] two errors found
+[error] /media/sf_E_DRIVE/sdev4/project/app/controllers/EmployeeController.java:84:1: cannot find symbol
+[error]   symbol:   variable employee
+[error]   location: class controllers.EmployeeController
+[error]             return ok(addEmployee.render(employeeForm, addressForm, employee, Department.getAll(), Project.getAll(), User.getWithEmail(session().get("email"))));

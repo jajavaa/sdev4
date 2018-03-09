@@ -1,7 +1,7 @@
 
 // @GENERATOR:play-routes-compiler
 // @SOURCE:/media/sf_E_DRIVE/sdev4/project/conf/routes
-// @DATE:Fri Mar 09 14:32:50 GMT 2018
+// @DATE:Fri Mar 09 18:11:15 GMT 2018
 
 import play.api.routing.JavaScriptReverseRoute
 
@@ -179,6 +179,16 @@ package controllers.javascript {
       if (_prefix.endsWith("/")) "" else "/"
     }
 
+  
+    // @LINE:15
+    def employees: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.EmployeeController.employees",
+      """
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "employees"})
+        }
+      """
+    )
   
     // @LINE:7
     def employee: JavaScriptReverseRoute = JavaScriptReverseRoute(
