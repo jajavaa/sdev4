@@ -3,10 +3,13 @@ package models;
 import io.ebean.Finder;
 import io.ebean.Model;
 import io.ebean.annotation.NotNull;
+import models.users.Employee;
 import play.data.validation.Constraints.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Address extends Model {
@@ -25,6 +28,8 @@ public class Address extends Model {
     private String code;
     @NotNull
     private String country;
+
+    private static Finder<String, Address> finder = new Finder<>(Address.class);
 
     public Address() {
     }
@@ -93,5 +98,19 @@ public class Address extends Model {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public static Address get(String id) {
+        return finder.ref(id);
+    }
+
+    public static List<Address> getOrphaned() {
+        List<Address> orphaned = finder.all();
+        List<Address> notOrphaned = new ArrayList<>();
+        for(Employee employee: Employee.getAll()) {
+            notOrphaned.add(employee.getAddress());
+        }
+        orphaned.removeAll(notOrphaned);
+        return orphaned;
     }
 }

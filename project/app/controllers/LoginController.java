@@ -20,7 +20,7 @@ public class LoginController extends Controller {
         return ok(login.render(loginForm, User.getWithEmail(session().get("email"))));
     }
 
-    public Result loginSubmit() {
+    public Result form() {
         Form<Login> loginForm = formFactory.form(Login.class).bindFromRequest();
         if (loginForm.hasErrors()) {
             return badRequest(login.render(loginForm, User.getWithEmail(session().get("email"))));
@@ -29,7 +29,7 @@ public class LoginController extends Controller {
             session("email", loginForm.get().getEmail());
             System.out.println("User logged in." + loginForm.get().getEmail());
         }
-        return redirect(routes.HomeController.index("0"));
+        return redirect(routes.ProjectController.projects());
     }
 
     public Result logout() {

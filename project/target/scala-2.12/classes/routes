@@ -1,15 +1,32 @@
-GET     /                       controllers.HomeController.index(department: String?="0")
-GET     /departments            controllers.DepartmentController.departments
-GET     /projects               controllers.ProjectController.projects
-GET     /project/:id            controllers.ProjectController.project(id: String)
-GET     /createProject          controllers.ProjectController.create
-GET     /updateProject/:id      controllers.ProjectController.update(id: String)
-GET     /employee/:id           controllers.EmployeeController.employee(id: String)
-GET     /project/delete/:id     controllers.ProjectController.delete(id: String)
-GET     /login                  controllers.LoginController.login
-POST    /loginSubmit            controllers.LoginController.loginSubmit
-GET     /logout                 controllers.LoginController.logout
-GET     /department/:id         controllers.DepartmentController.department(id: String)
-POST    /projectSubmit          controllers.ProjectController.form
-POST    /employeeSubmit         controllers.EmployeeController.form
-GET     /employees              controllers.EmployeeController.employees
+GET     /                           controllers.ProjectController.projects
+GET     /department/all             controllers.DepartmentController.departments
+GET     /department/:id             controllers.DepartmentController.department(id: String)
+GET     /department/create/         controllers.DepartmentController.create
+GET     /department/update/:id      controllers.DepartmentController.update(id: String)
+GET     /department/delete/:id      controllers.DepartmentController.delete(id: String)
+POST    /department/submit          controllers.DepartmentController.form
+
+GET     /project/all                controllers.ProjectController.projects
+GET     /project/:id                controllers.ProjectController.project(id: String)
+GET     /project/create/            controllers.ProjectController.create
+GET     /project/update/:id         controllers.ProjectController.update(id: String)
+GET     /project/delete/:id         controllers.ProjectController.delete(id: String)
+POST    /project/submit             controllers.ProjectController.form
+
+GET     /employee/all               controllers.EmployeeController.employees
+GET     /employee/:id               controllers.EmployeeController.employee(id: String)
+GET     /employee/create/           controllers.EmployeeController.create
+GET     /employee/update/:id        controllers.EmployeeController.update(id: String)
+GET     /employee/delete/:id        controllers.EmployeeController.delete(id: String)
+POST    /employee/submit            controllers.EmployeeController.form
+
+GET     /login                      controllers.LoginController.login
+GET     /logout                     controllers.LoginController.logout
+POST    /login/submit               controllers.LoginController.form
+
+GET     /address/create/:id         controllers.AddressController.create(id: String)
+GET     /address/update/:id/:empl   controllers.AddressController.update(id: String, empl: String)
+GET     /address/delete/:id/:empl   controllers.AddressController.delete(id: String, empl: String)
+POST    /address/submit             controllers.AddressController.form
+
+GET     /assets/*file               controllers.Assets.at(file)

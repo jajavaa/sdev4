@@ -1,0 +1,26 @@
+@import helper._
+@(departmentForm: play.data.Form[models.Department], department: models.Department,  user: models.users.User)
+
+@main("Add/Update Department", user) {
+    @form(action = routes.DepartmentController.form) {
+        @CSRF.formField
+        @if(department == null) {
+            <h3>Creating new department</h3>
+        } else {
+            <h3>Updating @department.getTitle Department</h3>
+        }
+        <div class="form-group">
+            @inputText(departmentForm("title"), '_label -> "Title", 'class -> "form-control")
+        </div>
+
+        <div class="form-group">
+            @if(department == null) {
+                <input type="submit" value="Create Department" class="form-control btn btn-success">
+            } else {
+                <input type="submit" value="Update Department" class="form-control btn btn-primary">
+            }
+        </div>
+
+        @inputText(departmentForm("id"), '_label -> "", 'readonly -> "readonly", 'hidden -> "hidden")
+    }
+}

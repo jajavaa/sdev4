@@ -1,0 +1,51 @@
+@import helper._
+@(addressForm: play.data.Form[models.Address], address: models.Address, employee: models.users.Employee, user: models.users.User)
+
+@main("Add/Change address", user) {
+    @form(action = routes.AddressController.form) {
+        @CSRF.formField
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-6 offset-md-3">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="form-group">
+                        @inputText(addressForm("lineOne"), '_label -> "First Line", 'class -> "form-control")
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="form-group">
+                        @inputText(addressForm("lineTwo"), '_label -> "Second Line", 'class -> "form-control")
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-4 col-lg-4">
+                        <div class="form-group">
+                        @inputText(addressForm("city"), '_label -> "City", 'class -> "form-control")
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-4 col-lg-4">
+                        <div class="form-group">
+                        @inputText(addressForm("county"), '_label -> "County", 'class -> "form-control")
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-4 col-lg-4">
+                        <div class="form-group">
+                        @inputText(addressForm("code"), '_label -> "Eirecode", 'class -> "form-control")
+                        </div>
+                    </div>
+                </div>
+                @inputText(addressForm("country"), '_label -> "Country", 'class -> "form-control")
+                @if(address == null) {
+                    <input class="btn btn-success form-control" type="submit" value="Create Address">
+                } else {
+                    <input class="btn btn-primary form-control" type="submit" value="Change Address">
+                }
+
+            </div>
+        </div>
+        <input type="text" value="@employee.getId" name="employee" readonly hidden>
+        @inputText(addressForm("id"), '_label -> "", 'hidden -> "hidden")
+    }
+}

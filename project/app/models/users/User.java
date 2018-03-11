@@ -25,8 +25,6 @@ public class User extends Model {
     protected String email;
     @NotNull
     protected String phone;
-    @NotNull
-    protected String role;
 
     private static Finder<String, User> finder = new Finder<>(User.class);
 
@@ -40,7 +38,6 @@ public class User extends Model {
         this.password = password;
         this.email = email;
         this.phone = phone;
-        this.role = role;
     }
 
     public String getId() {
@@ -89,14 +86,6 @@ public class User extends Model {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 
     public static List<? extends User> getAll() {

@@ -1,0 +1,41 @@
+@import helper._
+@(projectForm: play.data.Form[models.Project], project: models.Project, employees: java.util.List[models.users.Employee], user: models.users.User)
+
+@main("Add/Remove employees", user) {
+    <div class="row">
+    @form(action = routes.ProjectController.form) {
+        @CSRF.formField
+        @if(project == null) {
+            @for(employee <- employees) {
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" value="" name="@employee.getId">@employee.getNames
+                    </label>
+                </div>
+            }
+        } else {
+            @for(employee <- employees) {
+                @if(project.getEmployees.contains(employee)) {
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" value="" name="@employee.getId" checked>@employee.getNames
+                        </label>
+                    </div>
+                } else {
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" value="" name="@employee.getId">@employee.getNames
+                        </label>
+                    </div>
+                }
+            }
+        }
+        <input type="submit" class="btn btn-primary" value="Amend Project">
+
+            @inputDate(projectForm("start"), '_label -> "", 'hidden -> "hidden")
+            @inputDate(projectForm("end"), '_label -> "", 'hidden -> "hidden")
+            @inputText(projectForm("name"), '_label -> "", 'class -> "from-control", 'hidden -> "hidden")
+            @inputText(projectForm("id"), '_label -> "", 'readonly -> "readonly", 'hidden -> "hidden")
+    </div>
+}
+}

@@ -1,35 +1,58 @@
 @(project: models.Project, user: models.users.User)
 
 @main(project.getName, user) {
-    <h1>@project.getName</h1>
-    <table>
-        <tr>
-            <td>ID</td>
-            <td>@project.getId</td>
-        </tr>
-        <tr>
-            <td>Name</td>
-            <td>@project.getName</td>
-        </tr>
-        <tr>
-            <td>Start</td>
-            <td>@project.getStartString</td>
-        </tr>
-        <tr>
-            <td>End</td>
-            <td>@project.getEndString</td>
-        </tr>
-        <tr>
-            <td>Employees</td>
-            <td>
-                <ul>
-                    @for(employee <- project.getEmployees) {
-                        <li>
-                            <a href="@routes.EmployeeController.employee(employee.getId)">@employee.getNames</a>
-                        </li>
+    <h1>Project: @project.getName</h1>
+    <ul class="list-inline">
+        <li class="list-inline-item"><h3>Start Date: @project.getStartString</h3></li>
+        <li class="list-inline-item"><h3>|</h3></li>
+        <li class="list-inline-item"><h3>End Date: @project.getEndString</h3></li>
+        <li class="list-inline-item"><h3>|</h3></li>
+        <li class="list-inline-item">
+            <h3>
+                Project end in:
+                @if(project.getDays <= 10) {
+                    <span class="text-danger">@project.getDays days</span>
+                } else {
+                    @if(project.getDays <= 20) {
+                        <span class="text-warning">@project.getDays days</span>
+                    } else {
+                        <span class="text-success">@project.getDays days</span>
                     }
-                </ul>
-            </td>
-        </tr>
+                }
+            </h3>
+        </li>
+    </ul>
+    <h3>Project Team</h3>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Mobile Phone</th>
+            </tr>
+        </thead>
+        <tbody>
+        @for(employee <- project.getEmployees) {
+            <tr>
+                <td>
+                @defining(project.getEmployees.indexOf(employee) + 1) { index =>
+                    @index
+                }
+                </td>
+                <td>
+                    <a href="@routes.EmployeeController.employee(employee.getId)">@employee.getFirstName</a>
+                </td>
+                <td>
+                    <a href="@routes.EmployeeController.employee(employee.getId)">@employee.getLastName</a>
+                </td>
+                <td>
+                    <a href="mailto:@employee.getEmail">@employee.getEmail</a>
+                </td>
+                <td>@employee.getPhone</td>
+            </tr>
+        }
+        </tbody>
     </table>
 }

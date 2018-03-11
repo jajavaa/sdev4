@@ -1,29 +1,51 @@
 @(projects: java.util.List[models.Project], user: models.users.User)
 
 @main("Project View", user) {
-    <a href="@routes.ProjectController.create()">Create new project</a>
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Start</th>
-            <th>End</th>
-            @if(user.getRole.equals("admin")) {
-                <th>Number of Employees</th>
-            }
-        </tr>
+    @if(user.isInstanceOf[models.users.Admin]) {
+        <a class="btn btn-success new-button" href="@routes.ProjectController.create()">Create project</a>
+    }
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">End Date</th>
+                <th scope="col">Days Left</th>
+                @if(user.isInstanceOf[models.users.Admin]) {
+                    <th scope="col">Employees Assigned</th>
+                    <th scope="col" class="text-center">Update</th>
+                    <th scope="col" class="text-center text-danger">Delete</th>
+                }
+            </tr>
+        </thead>
         @for(project <- projects) {
             <tr>
-                <td>
+                <td scope="row">
                     <a href="@routes.ProjectController.project(project.getId)">@project.getName</a></td>
                 <td>@project.getStartString</td>
                 <td>@project.getEndString</td>
-                @if(user.getRole.equals("admin")) {
-                    <td>@project.getEmployees.size</td>
-                    <td>
-                        <a href="@routes.ProjectController.delete(project.getId)">Delete</a>
+                <td>
+                    @if(project.getDays <= 10) {
+                        <span class="text-danger">@project.getDays days</span>
+                    } else {
+                        @if(project.getDays <= 20) {
+                            <span class="text-warning">@project.getDays days</span>
+                        } else {
+                            <span class="text-success">@project.getDays days</span>
+                        }
+                    }
+                </td>
+                @if(user.isInstanceOf[models.users.Admin]) {
+                    @if(project.getEmployees.size == 0) {
+                        <td class="text-danger">@project.getEmployees.size</td>
+                    } else {
+                        <td>@project.getEmployees.size</td>
+                    }
+                    <td class="text-center">
+                        <a href="@routes.ProjectController.update(project.getId)"><span class="fa fa-pencil"></span></a>
                     </td>
-                    <td>
-                        <a href="@routes.ProjectController.update(project.getId)">Update</a>
+                    <td class="text-center">
+                        <a class="text-danger" href="@routes.ProjectController.delete(project.getId)" onclick="return confirm('Removing project! Are you sure?')"><span class="fa fa-remove"></span></a>
                     </td>
                 }
             </tr>

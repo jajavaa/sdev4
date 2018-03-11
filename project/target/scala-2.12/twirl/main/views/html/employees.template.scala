@@ -31,38 +31,38 @@ object employees extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.
 
 
 Seq[Any](format.raw/*1.77*/("""
-
-"""),_display_(/*3.2*/main("Employee view", user)/*3.29*/ {_display_(Seq[Any](format.raw/*3.31*/("""
-    """),format.raw/*4.5*/("""<table>
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Role</th>
-            <th>Department</th>
-            <th># of Projects</th>
-        </tr>
-        """),_display_(/*14.10*/for(employee <- employees) yield /*14.36*/ {_display_(Seq[Any](format.raw/*14.38*/("""
-            """),format.raw/*15.13*/("""<tr>
-                <td>
-                    <a href=""""),_display_(/*17.31*/routes/*17.37*/.EmployeeController.employee(employee.getId)),format.raw/*17.81*/("""">"""),_display_(/*17.84*/employee/*17.92*/.getFirstName),format.raw/*17.105*/("""</a></td>
-                <td>
-                    <a href=""""),_display_(/*19.31*/routes/*19.37*/.EmployeeController.employee(employee.getId)),format.raw/*19.81*/("""">"""),_display_(/*19.84*/employee/*19.92*/.getLastName),format.raw/*19.104*/("""</a>
-                </td>
-                <td>
-                    <a href="mailto:"""),_display_(/*22.38*/employee/*22.46*/.getEmail),format.raw/*22.55*/("""">"""),_display_(/*22.58*/employee/*22.66*/.getEmail),format.raw/*22.75*/("""</a>
-                </td>
-                <td>
-                    <a href="tel:"""),_display_(/*25.35*/employee/*25.43*/.getPhone),format.raw/*25.52*/("""">"""),_display_(/*25.55*/employee/*25.63*/.getPhone),format.raw/*25.72*/("""</a>
-                </td>
-                <td>"""),_display_(/*27.22*/employee/*27.30*/.getRole),format.raw/*27.38*/("""</td>
-                <td>"""),_display_(/*28.22*/employee/*28.30*/.getDepartment.getTitle),format.raw/*28.53*/("""</td>
-                <td>"""),_display_(/*29.22*/employee/*29.30*/.getProjects.size),format.raw/*29.47*/("""</td>
-            </tr>
-        """)))}),format.raw/*31.10*/("""
-    """),format.raw/*32.5*/("""</table>
-""")))}))
+    """),_display_(/*2.6*/main("Employee View", user)/*2.33*/ {_display_(Seq[Any](format.raw/*2.35*/("""
+        """),format.raw/*3.9*/("""<a class="btn btn-success new-button" href=""""),_display_(/*3.54*/routes/*3.60*/.EmployeeController.create),format.raw/*3.86*/("""">Create employee</a>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Department</th>
+                    <th scope="col" class="text-center">Update</th>
+                    <th scope="col" class="text-center text-danger">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+            """),_display_(/*15.14*/for(employee <- employees) yield /*15.40*/ {_display_(Seq[Any](format.raw/*15.42*/("""
+                """),format.raw/*16.17*/("""<tr>
+                    <td scope="row">
+                        <a href=""""),_display_(/*18.35*/routes/*18.41*/.EmployeeController.employee(employee.getId)),format.raw/*18.85*/("""">"""),_display_(/*18.88*/employee/*18.96*/.getFirstName),format.raw/*18.109*/("""</a></td>
+                    <td>
+                        <a href=""""),_display_(/*20.35*/routes/*20.41*/.EmployeeController.employee(employee.getId)),format.raw/*20.85*/("""">"""),_display_(/*20.88*/employee/*20.96*/.getLastName),format.raw/*20.108*/("""</a>
+                    </td>
+                    <td>"""),_display_(/*22.26*/employee/*22.34*/.getDepartment.getTitle),format.raw/*22.57*/("""</td>
+                    <td class="text-center">
+                        <a href=""""),_display_(/*24.35*/routes/*24.41*/.EmployeeController.update(employee.getId)),format.raw/*24.83*/(""""><span class="fa fa-pencil"></span></a>
+                    </td>
+                    <td class="text-center">
+                        <a class="text-danger" href=""""),_display_(/*27.55*/routes/*27.61*/.EmployeeController.delete(employee.getId)),format.raw/*27.103*/("""" onclick="return confirm('Removing employee! Are you sure?');"><span class="fa fa-remove"></span></a>
+                    </td>
+                </tr>
+            """)))}),format.raw/*30.14*/("""
+            """),format.raw/*31.13*/("""</tbody>
+        </table>
+    """)))}))
       }
     }
   }
@@ -78,11 +78,11 @@ Seq[Any](format.raw/*1.77*/("""
 
               /*
                   -- GENERATED --
-                  DATE: Fri Mar 09 18:11:16 GMT 2018
-                  SOURCE: /media/sf_E_DRIVE/sdev4/project/app/views/employees.scala.html
-                  HASH: 0c9b16481226ce63eca171fa0b7939f5dfe07e4c
-                  MATRIX: 1001->1|1171->76|1199->79|1234->106|1273->108|1304->113|1585->367|1627->393|1667->395|1708->408|1791->464|1806->470|1871->514|1901->517|1918->525|1953->538|2041->599|2056->605|2121->649|2151->652|2168->660|2202->672|2314->757|2331->765|2361->774|2391->777|2408->785|2438->794|2547->876|2564->884|2594->893|2624->896|2641->904|2671->913|2746->961|2763->969|2792->977|2846->1004|2863->1012|2907->1035|2961->1062|2978->1070|3016->1087|3080->1120|3112->1125
-                  LINES: 28->1|33->1|35->3|35->3|35->3|36->4|46->14|46->14|46->14|47->15|49->17|49->17|49->17|49->17|49->17|49->17|51->19|51->19|51->19|51->19|51->19|51->19|54->22|54->22|54->22|54->22|54->22|54->22|57->25|57->25|57->25|57->25|57->25|57->25|59->27|59->27|59->27|60->28|60->28|60->28|61->29|61->29|61->29|63->31|64->32
+                  DATE: Sun Mar 11 13:01:32 GMT 2018
+                  SOURCE: /home/konrad/Documents/sdev4/project/app/views/employees.scala.html
+                  HASH: 5da5053ccc9891b192b63be65848947c5aba4382
+                  MATRIX: 1001->1|1171->76|1202->82|1237->109|1276->111|1311->120|1382->165|1396->171|1442->197|1960->688|2002->714|2042->716|2087->733|2190->809|2205->815|2270->859|2300->862|2317->870|2352->883|2448->952|2463->958|2528->1002|2558->1005|2575->1013|2609->1025|2692->1081|2709->1089|2753->1112|2865->1197|2880->1203|2943->1245|3136->1411|3151->1417|3215->1459|3410->1623|3451->1636
+                  LINES: 28->1|33->1|34->2|34->2|34->2|35->3|35->3|35->3|35->3|47->15|47->15|47->15|48->16|50->18|50->18|50->18|50->18|50->18|50->18|52->20|52->20|52->20|52->20|52->20|52->20|54->22|54->22|54->22|56->24|56->24|56->24|59->27|59->27|59->27|62->30|63->31
                   -- GENERATED --
               */
           

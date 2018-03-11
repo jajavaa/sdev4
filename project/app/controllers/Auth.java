@@ -16,7 +16,7 @@ class Auth {
             String email = ctx.session().get("email");
             if (email != null) {
                 User user = Admin.getWithEmail(email);
-                if (user.getRole().equals("admin") && user.getClass().equals(Admin.class)) {
+                if (user.getClass().equals(Admin.class)) {
                     return delegate.call(ctx);
                 } else return CompletableFuture.completedFuture(forbidden("HTTP 403: Forbidden"));
             }
@@ -31,8 +31,7 @@ class Auth {
             String email = ctx.session().get("email");
             if (email != null) {
                 User user = Employee.getWithEmail(email);
-                if(user.getRole().equals("employee") && user.getClass().equals(Employee.class)) {
-
+                if(user.getClass().equals(Employee.class)) {
                     return delegate.call(ctx);
                 } else return CompletableFuture.completedFuture(forbidden("HTTP 403: Forbidden"));
             }

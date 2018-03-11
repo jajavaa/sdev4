@@ -1,40 +1,76 @@
 @import helper._
-@(employeeForm: play.data.Form[models.users.Employee], addressForm: play.data.Form[models.Address], employee: models.users.Employee, departments: java.util.List[models.Department], projects: java.util.List[models.Project], user: models.users.User)
+@(employeeForm: play.data.Form[models.users.Employee], address: models.Address, employee: models.users.Employee, departments: java.util.List[models.Department], user: models.users.User)
 
 @main("Add/Update Employee", user) {
-    @form(action = routes.EmployeeController.form()) {
+    @form(action = routes.EmployeeController.form(), 'enctype -> "multipart/form-data") {
         @CSRF.formField
-        @inputText(employeeForm("id"), 'label -> "Employee ID", 'readonly -> "readonly")
-        @inputText(employeeForm("firstName"), 'label -> "First Name")
-        @inputText(employeeForm("lastName"), 'label -> "Last Name")
-        @inputPassword(employeeForm("password"), 'label -> "Password")
-        @inputText(employeeForm("email"), 'label -> "Email")
-        @inputText(employeeForm("phone"), 'label -> "Mobile Phone")
-            @inputText(addressForm("lineOne"), 'label -> "First Line")
-            @inputText(addressForm("lineTwo"), 'label -> "Second Line")
-            @inputText(addressForm("city"), 'label -> "City")
-            @inputText(addressForm("county"), 'label -> "County")
-            @inputText(addressForm("code"), 'label -> "Eirecode")
-            @inputText(addressForm("country"), 'label -> "Country")
-        <select name="department">
-        @for(department <- departments) {
-            <option value="@department.getId">@department.getTitle</option>
-        }
-        </select>
         @if(employee == null) {
-            @for(project <- projects) {
-                <input type="checkbox" id="employee" name="@project.getId">
-                <label for="employee">@project.getName</label>
-            }
+            <h3>New employee details</h3>
         } else {
-            @for(project <- projects) {
-                @if(employee.getProjects.contains(project)) {
-                    <input type="checkbox" id="employee" name="@project.getId" checked>
-                } else {
-                    <input type="checkbox" id="employee" name="@project.getId">
-                }
-                <label for="employee">@project.getId</label>
+            @if(employee.getEmail.equals(user.getEmail)) {
+                <h3>Updating your details</h3>
+            } else {
+                <h3>Updating @employee.getFirstName @employee.getLastName's details</h3>
             }
         }
+        <div class="form-group">
+            <label for="image">Picture</label>
+            <input id="image" class="form-control" type="file" name="upload">
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-6">
+                <div class="form-group">
+                @inputText(employeeForm("firstName"), '_label -> "First Name", 'class -> "form-control", 'required -> "required")
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-6">
+                <div class="form-group">
+                @inputText(employeeForm("lastName"), '_label -> "Last Name", 'class -> "form-control", 'required -> "required")
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+        @inputPassword(employeeForm("password"), '_label -> "Password", 'class -> "form-control")
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-6">
+                <div class="form-group">
+                @inputText(employeeForm("email"), '_label -> "Email", 'class -> "form-control", 'required -> "required")
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-6">
+                <div class="form-group">
+                @inputText(employeeForm("phone"), '_label -> "Mobile Phone", 'class -> "form-control", 'required -> "required")
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="department"></label>
+            <select class="form-control" id="department" name="d">
+            @if(employee == null) {
+                <option selected disabled>Select Department</option>
+                @for(department <- departments) {
+                    <option value="@department.getId">@department.getTitle</option>
+                }
+            } else {
+                @for(department <- departments) {
+                    @if(department.getEmployees.contains(employee)) {
+                        <option value="@department.getId" selected>@department.getTitle</option>
+                    } else {
+                        <option value="@department.getId">@department.getTitle</option>
+                    }
+                }
+            }
+            </select>
+        </div>
+        @if(employee == null) {
+            <input type="submit" class="btn btn-success" value="Add Employee">
+        } else {
+            <input type="submit" class="btn btn-primary" value="Update Employee">
+        }
+        @if(address != null) {
+            <input type="text" id="address" name="a" value="@address.getId" readonly="readonly" hidden>
+        }
+        @inputText(employeeForm("id"), '_label -> "", 'readonly -> "readonly", 'hidden -> "hidden")
     }
 }

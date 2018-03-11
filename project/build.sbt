@@ -11,5 +11,6 @@ libraryDependencies ++= Seq(
   guice,
   evolutions,
   jdbc,
-  "com.h2database" % "h2" % "1.4.192"
+  "com.h2database" % "h2" % "1.4.192",
+  "org.im4java" % "im4java" % "1.4.0"
 )

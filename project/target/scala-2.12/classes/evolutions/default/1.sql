@@ -36,7 +36,7 @@ create table project_user (
 );
 
 create table user (
-  role                          varchar(255) not null,
+  role                          varchar(31) not null,
   id                            varchar(255) not null,
   first_name                    varchar(255) not null,
   last_name                     varchar(255) not null,

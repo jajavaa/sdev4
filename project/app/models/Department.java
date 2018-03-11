@@ -41,6 +41,10 @@ public class Department extends Model {
         return this.id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return this.title;
     }
@@ -53,17 +57,15 @@ public class Department extends Model {
         return employees;
     }
 
+    public static Finder<String, Department> getFind() {
+        return find;
+    }
+
     public static List<Department> getAll() {
         return Department.find.query().where().orderBy("title asc").findList();
     }
 
     public static Department get(String id) {
         return find.ref(id);
-    }
-
-    public static Map<String, String> options() {
-        LinkedHashMap<String, String> options = new LinkedHashMap<>();
-        getAll().forEach(department -> options.put(department.getId(), department.getTitle()));
-        return options;
     }
 }

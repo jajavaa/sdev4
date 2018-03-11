@@ -4,12 +4,12 @@ import io.ebean.Finder;
 import io.ebean.Model;
 import io.ebean.annotation.NotNull;
 import models.users.Employee;
-import org.joda.time.DateTime;
 import javax.persistence.*;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Entity
 public class Project extends Model {
@@ -76,6 +76,10 @@ public class Project extends Model {
         return new SimpleDateFormat("dd-MM-yy").format(end);
     }
 
+    public long getDays() {
+        return TimeUnit.DAYS.convert( end.getTime() - new Date().getTime(), TimeUnit.MILLISECONDS);
+    }
+
     public void setEnd(Date end) {
         this.end = end;
     }
@@ -93,7 +97,9 @@ public class Project extends Model {
     }
 
     public static List<Project> getAll() {
-        return Project.finder.all();
+        List<Project> projects = finder.all();
+        projects.sort(Comparator.comparing(Project::getDays));
+        return projects;
     }
 
     public static Project get(String id) {

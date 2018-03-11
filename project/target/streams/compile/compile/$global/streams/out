@@ -1,4 +1,5 @@
-[error] /media/sf_E_DRIVE/sdev4/project/app/controllers/EmployeeController.java:84:1: cannot find symbol
-[error]   symbol:   variable employee
-[error]   location: class controllers.EmployeeController
-[error]             return ok(addEmployee.render(employeeForm, addressForm, employee, Department.getAll(), Project.getAll(), User.getWithEmail(session().get("email"))));
+[error] /home/konrad/Documents/sdev4/project/app/views/employee.scala.html:46:98: not enough arguments for method delete: (id: String, empl: String)play.api.mvc.Call.
+[error] Unspecified value parameter empl.
+[error]                                 <a class="btn btn-primary" href="@routes.AddressController.delete(employee.getAddress.getId)">Delete</a>
+[error]                                                                                                  ^
+[error] one error found

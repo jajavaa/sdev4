@@ -32,44 +32,27 @@ object department extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api
 
 Seq[Any](format.raw/*1.58*/("""
 
-"""),_display_(/*3.2*/main(department.getTitle, user)/*3.33*/ {_display_(Seq[Any](format.raw/*3.35*/("""
-    """),format.raw/*4.5*/("""<table>
-        <tr>
-            <th>#</th>
-            <th>Title</th>
-        </tr>
-        <tr>
-            <td>"""),_display_(/*10.18*/department/*10.28*/.getId),format.raw/*10.34*/("""</td>
-            <td>"""),_display_(/*11.18*/department/*11.28*/.getTitle),format.raw/*11.37*/("""</td>
-        </tr>
-    </table>
-    <table>
-        <tr>
-            <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Department</th>
-            <th>Address</th>
-        </tr>
-        """),_display_(/*24.10*/for(employee <- department.getEmployees) yield /*24.50*/ {_display_(Seq[Any](format.raw/*24.52*/("""
-            """),format.raw/*25.13*/("""<tr>
-                <td>
-                    <a href=""""),_display_(/*27.31*/routes/*27.37*/.EmployeeController.employee(employee.getId)),format.raw/*27.81*/("""">"""),_display_(/*27.84*/employee/*27.92*/.getId),format.raw/*27.98*/("""</a>
-                </td>
-                <td>"""),_display_(/*29.22*/employee/*29.30*/.getFirstName),format.raw/*29.43*/("""</td>
-                <td>"""),_display_(/*30.22*/employee/*30.30*/.getLastName),format.raw/*30.42*/("""</td>
-                <td>
-                    <a href="mailto:"""),_display_(/*32.38*/employee/*32.46*/.getEmail),format.raw/*32.55*/("""">"""),_display_(/*32.58*/employee/*32.66*/.getEmail),format.raw/*32.75*/("""</a>
-                </td>
-                <td>
-                    <a href="tel:"""),_display_(/*35.35*/employee/*35.43*/.getPhone),format.raw/*35.52*/("""">"""),_display_(/*35.55*/employee/*35.63*/.getPhone),format.raw/*35.72*/("""</a>
-                </td>
-                <td>"""),_display_(/*37.22*/employee/*37.30*/.getAddress.toString),format.raw/*37.50*/("""</td>
+"""),_display_(/*3.2*/main(department.getTitle + " Staff Preview", user)/*3.52*/ {_display_(Seq[Any](format.raw/*3.54*/("""
+    """),format.raw/*4.5*/("""<table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">First Name</th>
+                <th scope="col" class="w-50">Last Name</th>
+                <th scope="col">Email</th>
             </tr>
-        """)))}),format.raw/*39.10*/("""
-    """),format.raw/*40.5*/("""</table>
+        </thead>
+        <tbody>
+            """),_display_(/*13.14*/for(employee <- department.getEmployees) yield /*13.54*/ {_display_(Seq[Any](format.raw/*13.56*/("""
+                """),format.raw/*14.17*/("""<tr>
+                    <td scope="row"><a href=""""),_display_(/*15.47*/routes/*15.53*/.EmployeeController.employee(employee.getId)),format.raw/*15.97*/("""">"""),_display_(/*15.100*/employee/*15.108*/.getFirstName),format.raw/*15.121*/("""</a></td>
+                    <td><a href=""""),_display_(/*16.35*/routes/*16.41*/.EmployeeController.employee(employee.getId)),format.raw/*16.85*/("""">"""),_display_(/*16.88*/employee/*16.96*/.getLastName),format.raw/*16.108*/("""</a></td>
+                    <td>
+                        <a href="mailto:"""),_display_(/*18.42*/employee/*18.50*/.getEmail),format.raw/*18.59*/("""">"""),_display_(/*18.62*/employee/*18.70*/.getEmail),format.raw/*18.79*/("""</a>
+                    </td>
+                </tr>
+            """)))}),format.raw/*21.14*/("""
+        """),format.raw/*22.9*/("""</tbody>
+    </table>
 """)))}))
       }
     }
@@ -86,11 +69,11 @@ Seq[Any](format.raw/*1.58*/("""
 
               /*
                   -- GENERATED --
-                  DATE: Fri Mar 09 13:29:47 GMT 2018
-                  SOURCE: /media/sf_E_DRIVE/sdev4/project/app/views/department.scala.html
-                  HASH: 1736158d9a9e56dd0931221914432c60efe1a1ea
-                  MATRIX: 982->1|1133->57|1161->60|1200->91|1239->93|1270->98|1412->213|1431->223|1458->229|1508->252|1527->262|1557->271|1866->553|1922->593|1962->595|2003->608|2086->664|2101->670|2166->714|2196->717|2213->725|2240->731|2315->779|2332->787|2366->800|2420->827|2437->835|2470->847|2561->911|2578->919|2608->928|2638->931|2655->939|2685->948|2794->1030|2811->1038|2841->1047|2871->1050|2888->1058|2918->1067|2993->1115|3010->1123|3051->1143|3115->1176|3147->1181
-                  LINES: 28->1|33->1|35->3|35->3|35->3|36->4|42->10|42->10|42->10|43->11|43->11|43->11|56->24|56->24|56->24|57->25|59->27|59->27|59->27|59->27|59->27|59->27|61->29|61->29|61->29|62->30|62->30|62->30|64->32|64->32|64->32|64->32|64->32|64->32|67->35|67->35|67->35|67->35|67->35|67->35|69->37|69->37|69->37|71->39|72->40
+                  DATE: Sat Mar 10 22:49:33 GMT 2018
+                  SOURCE: /home/konrad/Documents/sdev4/project/app/views/department.scala.html
+                  HASH: c7ce674854095539c2563c7e8544666e8f9c6126
+                  MATRIX: 982->1|1133->57|1161->60|1219->110|1258->112|1289->117|1605->406|1661->446|1701->448|1746->465|1824->516|1839->522|1904->566|1935->569|1953->577|1988->590|2059->634|2074->640|2139->684|2169->687|2186->695|2220->707|2323->783|2340->791|2370->800|2400->803|2417->811|2447->820|2544->886|2580->895
+                  LINES: 28->1|33->1|35->3|35->3|35->3|36->4|45->13|45->13|45->13|46->14|47->15|47->15|47->15|47->15|47->15|47->15|48->16|48->16|48->16|48->16|48->16|48->16|50->18|50->18|50->18|50->18|50->18|50->18|53->21|54->22
                   -- GENERATED --
               */
           

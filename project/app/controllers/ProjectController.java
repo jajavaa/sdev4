@@ -12,6 +12,7 @@ import play.mvc.Result;
 import play.mvc.Security;
 import play.mvc.With;
 import views.html.addProject;
+import views.html.addProjectEmployees;
 import views.html.projects;
 import views.html.project;
 import javax.inject.Inject;
@@ -32,7 +33,7 @@ public class ProjectController extends Controller{
     public Result projects() {
         List<Project> projectList = Project.getAll();
         User user = User.getWithEmail(session().get("email"));
-        if(user.getRole().equals("employee")) {
+        if(user.getClass().equals(Employee.class)) {
             List<Project> participating = new ArrayList<>();
             for(Project p: projectList) {
                 if(p.getEmployees().contains(user)) {
@@ -79,7 +80,6 @@ public class ProjectController extends Controller{
         } catch (Exception ex) {
             return badRequest("<h1>400 Bad Request</h1>");
         }
-
         return ok(addProject.render(form, project, Employee.getAll(),User.getWithEmail(session().get("email"))));
     }
 
@@ -95,7 +95,7 @@ public class ProjectController extends Controller{
     @With(Auth.AuthAdmin.class)
     @Transactional
     public Result form() {
-       Form<Project> form = formFactory.form(Project.class).bindFromRequest();
+        Form<Project> form = formFactory.form(Project.class).bindFromRequest();
         Project project = form.get();
         for(Employee employee: Employee.getAll()) {
             if(form.field(employee.getId()).getValue().isPresent()) {
@@ -109,10 +109,8 @@ public class ProjectController extends Controller{
                 } else if (project.getId().equals("")) {
                     project.setId(UUID.randomUUID().toString());
                     project.save();
-                    System.out.println("project saved");
                 } else if (!project.getId().equals("")) {
                     project.update();
-                    System.out.println("Project updated");
                 }
                 return redirect(controllers.routes.ProjectController.projects());
             }

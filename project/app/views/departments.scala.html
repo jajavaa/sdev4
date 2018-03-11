@@ -1,29 +1,41 @@
 @(departments: java.util.List[models.Department], user: models.users.User)
 
 @main("Department View", user) {
-    <table>
-        <tr>
-            <th>#</th>
-            <th>Title</th>
-        </tr>
+    @if(user.isInstanceOf[models.users.Admin]) {
+        <a class="btn btn-success new-button" href="@routes.DepartmentController.create()">Create department</a>
+    }
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col" class="w-75">Title</th>
+                <th scope="col" class="text-center w-25">Change</th>
+                <th scope="col" class="text-center w-25 text-danger">Remove</th>
+            </tr>
+        </thead>
+        <tbody>
         @if(user.isInstanceOf[models.users.Employee]) {
-           @defining(user.asInstanceOf[models.users.Employee]) { emp =>
+            @defining(user.asInstanceOf[models.users.Employee]) { emp =>
                 <tr>
-                    <td><a href="@routes.DepartmentController.department(emp.getDepartment.getId)">@emp.getDepartment.getId</a></td>
+                    <td scope="row"><a href="@routes.DepartmentController.department(emp.getDepartment.getId)">@emp.getDepartment.getId</a></td>
                     <td>@emp.getDepartment.getTitle</td>
                 </tr>
-           }
+            }
         } else {
             @if(user.isInstanceOf[models.users.Admin]) {
                 @for(department <- departments) {
                     <tr>
-                        <td>
-                            <a href="@routes.DepartmentController.department(department.getId)">@department.getId</a>
+                        <td scope="row">
+                            <a href="@routes.DepartmentController.department(department.getId)">@department.getTitle</a></td>
+                        <td class="text-center">
+                            <a href="@routes.DepartmentController.update(department.getId)"><span class="fa fa-pencil"></span></a>
                         </td>
-                        <td>@department.getTitle</td>
+                        <td class="text-center">
+                            <a class="text-danger" href="@routes.DepartmentController.delete(department.getId)" onclick="return confirm('Deleting department! Are you sure?')"><span class="fa fa-remove"></span></a>
+                        </td>
                     </tr>
                 }
             }
         }
+        </tbody>
     </table>
 }

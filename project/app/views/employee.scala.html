@@ -1,51 +1,93 @@
-@(employee: models.users.Employee, user: models.users.User)
+@(employee: models.users.Employee, env: play.api.Environment, user: models.users.User)
 
-@main(employee.getNames, user) {
-    <h1>@employee.getNames</h1>
-    <table>
-        <tr>
-            <td>ID</td>
-            <td>
-                <a href="@routes.EmployeeController.employee(employee.getId)">@employee.getId</a>
-            </td>
-        </tr>
-        <tr>
-            <td>Name</td>
-            <td>@employee.getLastName, @employee.getFirstName</td>
-        </tr>
-        <tr>
-            <td>Department</td>
-            <td>@employee.getDepartment.getTitle</td>
-        </tr>
-        <tr>
-            <td>Email</td>
-            <td><a href="mailto:@employee.getEmail">@employee.getEmail</a></td>
-        </tr>
-        <tr>
-            <td>Phone</td>
-            <td><a href="tel:@employee.getPhone">@employee.getPhone</a></td>
-        </tr>
-        <tr>
-            <td>Address</td>
-            <td>@employee.getAddress.getLineOne,<br>
-                @employee.getAddress.getLineTwo,<br>
-                @employee.getAddress.getCity,<br>
-                @employee.getAddress.getCounty,<br>
-                @employee.getAddress.getCode,<br>
-                @employee.getAddress.getCountry
-            </td>
-        </tr>
-        <tr>
-            <td>Projects</td>
-            <td>
-                <ul>
-                @for(project <- employee.getProjects) {
-                    <li>
-                        <a href="@routes.ProjectController.project(project.getId)">@project.getName</a>,
+    @main(employee.getNames, user) {
+        <div class="jumbotron text-center">
+            @if(env.resource("public/images/employees/thumbs/" + employee.getId + ".jpg").isDefined) {
+                <a href="@routes.Assets.at("images/employees/" + employee.getId + ".jpg")">
+                    <img id="employee-image" src="@routes.Assets.at("images/employees/thumbs/" + employee.getId + ".jpg")" alt="Unknown image error">
+                </a>
+            }
+            <h1>@employee.getNames</h1>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-6">
+                <ul class="list-inline">
+                    <li class="list-inline-item">
+                        <h3>Personal Details</h3>
                     </li>
-                }
+                    <li class="list-inline-item">
+                        <a class="btn btn-primary" href="@routes.EmployeeController.update(employee.getId)">Update</a>
+                    </li>
                 </ul>
-            </td>
-        </tr>
-    </table>
-}
+                <div class="jumbotron">
+                    <ul id="employee-details">
+                        <li>
+                            <span class="font-weight-bold">Department </span>
+                            <a href="@routes.DepartmentController.department(employee.getDepartment.getId)">@employee.getDepartment.getTitle</a>
+                        </li>
+                        <li>
+                            <span class="font-weight-bold">Email </span>
+                            <a href="mailto:@employee.getEmail">@employee.getEmail</a>
+                        </li>
+                        <li>
+                            <span class="font-weight-bold">Phone </span>
+                            @employee.getPhone
+                        </li>
+                        <li>
+                            <span class="font-weight-bold">Address</span><br>
+                            @if(employee.getAddress == null) {
+                                <span class="font-italic">Address not recorded</span><br>
+                                <a class="btn btn-success" href="@routes.AddressController.create(employee.getId)">Create Address</a>
+                            } else {
+                                @employee.getAddress.getLineOne, @employee.getAddress.getLineTwo,<br>
+                                @employee.getAddress.getCity, @employee.getAddress.getCounty,<br>
+                                @employee.getAddress.getCode, @employee.getAddress.getCountry<br>
+                                <a class="btn btn-primary" href="@routes.AddressController.update(employee.getAddress.getId, employee.getId)">Change</a>
+                                &nbsp;
+                                <a class="btn btn-danger" href="@routes.AddressController.delete(employee.getAddress.getId, employee.getId)">Delete</a>
+                            }
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-6">
+                <h3>Assigned Projects</h3>
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Days Left</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @for(project <- employee.getProjects) {
+                        <tr>
+                            <td scope="row">
+                            @defining(employee.getProjects.indexOf(project) + 1) { index =>
+                                @index
+                            }
+                            </td>
+                            <td>
+                                <a href="@routes.ProjectController.project(project.getId)">@project.getName</a>
+                            </td>
+                            <td>
+                            @if(project.getDays <= 10) {
+                                <span class="text-danger">@project.getDays days</span>
+                            } else {
+                                @if(project.getDays <= 20) {
+                                    <span class="text-warning">@project.getDays days</span>
+                                } else {
+                                    <span class="text-success">@project.getDays days</span>
+                                }
+                            }
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    }

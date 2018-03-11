@@ -7,6 +7,7 @@ import models.Department;
 import models.Project;
 
 import javax.persistence.*;
+import java.util.Comparator;
 import java.util.List;
 
 @Entity
@@ -71,7 +72,9 @@ public class Employee extends User {
     }
 
     public static List<Employee> getAll() {
-        return finder.all();
+        List<Employee> employees = finder.all();
+        employees.sort(Comparator.comparing(User::getLastName));
+        return employees;
     }
 
     public static Employee get(String id) {
